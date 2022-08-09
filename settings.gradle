@@ -1,0 +1,5 @@
+rootProject.name = 'delivery-system'
+include 'domain'
+include 'infrastructure'
+include 'application'
+
