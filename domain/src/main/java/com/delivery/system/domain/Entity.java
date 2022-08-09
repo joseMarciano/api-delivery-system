@@ -1,10 +1,14 @@
 package com.delivery.system.domain;
 
+import com.delivery.system.domain.validation.ValidationHandler;
+
 import java.util.Objects;
 
 public abstract class Entity<ID extends Identifier> {
 
     private ID id;
+
+    public abstract void validate(ValidationHandler anHandler);
 
     protected Entity(final ID id) {
         Objects.requireNonNull(id, "'id' should not be null");
