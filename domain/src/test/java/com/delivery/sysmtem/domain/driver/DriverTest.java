@@ -41,4 +41,16 @@ public class DriverTest {
 
         assertEquals(expectedErrorMessage, actualException.getMessage());
     }
+
+    @Test
+    public void givenANullName_whenCallUpdate_thenThrowsDomainException() {
+        final String expectedName = null;
+        final var expectedErrorMessage = "'name' should not be null";
+        final var aDriver = Driver.newDriver("john");
+
+        final var actualException =
+                assertThrows(DomainException.class, () -> aDriver.update(expectedName));
+
+        assertEquals(expectedErrorMessage, actualException.getMessage());
+    }
 }
