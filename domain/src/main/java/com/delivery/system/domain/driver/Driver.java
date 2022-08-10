@@ -34,6 +34,14 @@ public class Driver extends AggregateRoot<DriverID> {
         new DriverValidator(this, anHandler).validate();
     }
 
+    public Driver update(final String name) {
+        this.name = name;
+        this.updatedAt = Instant.now();
+
+        selfValidate();
+        return this;
+    }
+
     public String getName() {
         return name;
     }
