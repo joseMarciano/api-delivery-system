@@ -4,7 +4,7 @@ import com.delivery.system.domain.validation.Error;
 import com.delivery.system.domain.validation.ValidationHandler;
 import com.delivery.system.domain.validation.Validator;
 
-import java.util.Objects;
+import static java.util.Objects.isNull;
 
 public class DriverValidator extends Validator {
     private static int MIN_SIZE_NAME = 1;
@@ -19,13 +19,12 @@ public class DriverValidator extends Validator {
     @Override
     public void validate() {
         validateName();
-
     }
 
     private void validateName() {
         final var actualName = this.driver.getName();
 
-        if (Objects.isNull(actualName) || actualName.isBlank()) {
+        if (isNull(actualName) || actualName.isBlank()) {
             this.validationHandler().append(new Error("'name' should not be null"));
         }
 
@@ -36,7 +35,5 @@ public class DriverValidator extends Validator {
                                     .formatted(MIN_SIZE_NAME, MAX_SIZE_NAME)
                     ));
         }
-
-
     }
 }

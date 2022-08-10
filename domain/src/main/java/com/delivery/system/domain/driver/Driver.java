@@ -10,22 +10,19 @@ public class Driver extends AggregateRoot<DriverID> {
 
     private String name;
 
-    private String cpf;
-
     private Instant createdAt;
 
     private Instant updatedAt;
 
-    public static Driver newDriver(final String aName, final String aCpf) {
+    public static Driver newDriver(final String aName) {
         final var anId = DriverID.unique();
         final var now = Instant.now();
-        return new Driver(anId, aName, aCpf, now, now);
+        return new Driver(anId, aName, now, now);
     }
 
-    private Driver(final DriverID anId, final String aName, final String aCpf, Instant createdAt, Instant updatedAt) {
+    private Driver(final DriverID anId, final String aName, Instant createdAt, Instant updatedAt) {
         super(anId);
         this.name = aName;
-        this.cpf = aCpf;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
 
@@ -39,10 +36,6 @@ public class Driver extends AggregateRoot<DriverID> {
 
     public String getName() {
         return name;
-    }
-
-    public String getCpf() {
-        return cpf;
     }
 
     public Instant getCreatedAt() {
