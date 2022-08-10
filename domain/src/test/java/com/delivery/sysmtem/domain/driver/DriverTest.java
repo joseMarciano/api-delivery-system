@@ -43,6 +43,19 @@ public class DriverTest {
     }
 
     @Test
+    public void givenAValidParam_whenCallsUpdate_thenReturnDriverUpdated() {
+        final String expectedName = "John";
+        final var aDriver = Driver.newDriver("john");
+
+        final var actualDriver = aDriver.update(expectedName);
+
+        assertEquals(expectedName, actualDriver.getName());
+        assertNotNull(actualDriver.getCreatedAt());
+        assertNotNull(actualDriver.getUpdatedAt());
+        assertTrue(actualDriver.getCreatedAt().isBefore(actualDriver.getUpdatedAt()));
+    }
+
+    @Test
     public void givenANullName_whenCallUpdate_thenThrowsDomainException() {
         final String expectedName = null;
         final var expectedErrorMessage = "'name' should not be null";
