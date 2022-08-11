@@ -10,4 +10,6 @@ public interface DriverGateway {
 
     Optional<Driver> findById(DriverID anId);
 
+    void deleteById(DriverID anId);
+
 }
