@@ -14,7 +14,7 @@ public class DriverID extends Identifier {
     }
 
     private DriverID(String aValue) {
-        Objects.requireNonNull(aValue);
+        Objects.requireNonNull(aValue, "aValue is required");
         this.value = aValue;
     }
 
