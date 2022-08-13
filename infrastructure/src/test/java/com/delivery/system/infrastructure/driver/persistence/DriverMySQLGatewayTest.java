@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @MYSQLGatewayTest
 public class DriverMySQLGatewayTest {
 
@@ -40,7 +42,29 @@ public class DriverMySQLGatewayTest {
         Assertions.assertNotNull(actualEntity.getUpdatedAt());
         Assertions.assertEquals(actualEntity.getCreatedAt(), actualDriver.getCreatedAt());
         Assertions.assertEquals(actualEntity.getUpdatedAt(), actualDriver.getUpdatedAt());
-
-
     }
+
+    @Test
+    public void givenAValidPrePersistedDriver_whenCallsUpdateDriver_shouldReturnDriverUpdated() {
+        final var aDriver = Driver.newDriver("john");
+
+        final var expectedName = "John";
+        final var expectedId = aDriver.getId();
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.saveAndFlush(DriverJpaEntity.from(aDriver));
+        Assertions.assertEquals(1, driverRepository.count());
+
+        final var aDriverUpdated = aDriver.clone().update(expectedName);
+
+        final var actualDriver = driverMySQLGateway
+                .update(aDriverUpdated);
+
+        assertEquals(actualDriver.getId(), expectedId);
+        assertEquals(actualDriver.getName(), expectedName);
+        assertNotNull(actualDriver.getCreatedAt());
+        assertNotNull(actualDriver.getUpdatedAt());
+        assertTrue(actualDriver.getUpdatedAt().isAfter(aDriver.getCreatedAt()));
+    }
+
 }
