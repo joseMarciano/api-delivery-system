@@ -21,12 +21,12 @@ public class DriverMySQLGateway implements DriverGateway {
 
     @Override
     public Driver create(Driver aDriver) {
-        return driverRepository.save(DriverJpaEntity.from(aDriver)).toAggregate();
+        return save(aDriver);
     }
 
     @Override
     public Driver update(Driver aDriver) {
-        return null;
+        return save(aDriver);
     }
 
     @Override
@@ -43,4 +43,9 @@ public class DriverMySQLGateway implements DriverGateway {
     public List<Driver> findAll() {
         return null;
     }
+
+    private Driver save(Driver aDriver) {
+        return driverRepository.save(DriverJpaEntity.from(aDriver)).toAggregate();
+    }
+
 }
