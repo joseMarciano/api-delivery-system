@@ -3,6 +3,7 @@ package com.delivery.system.infrastructure.driver;
 import com.delivery.system.domain.driver.Driver;
 import com.delivery.system.domain.driver.DriverGateway;
 import com.delivery.system.domain.driver.DriverID;
+import com.delivery.system.infrastructure.driver.persistence.DriverJpaEntity;
 import com.delivery.system.infrastructure.driver.persistence.DriverRepository;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,7 @@ public class DriverMySQLGateway implements DriverGateway {
 
     @Override
     public Driver create(Driver aDriver) {
-        return null;
+        return driverRepository.save(DriverJpaEntity.from(aDriver)).toAggregate();
     }
 
     @Override

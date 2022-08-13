@@ -6,7 +6,7 @@ import com.delivery.system.domain.validation.handler.ThrowsValidationHandler;
 
 import java.time.Instant;
 
-public class Driver extends AggregateRoot<DriverID> implements Cloneable{
+public class Driver extends AggregateRoot<DriverID> implements Cloneable {
 
     private String name;
 
@@ -29,6 +29,18 @@ public class Driver extends AggregateRoot<DriverID> implements Cloneable{
         selfValidate();
     }
 
+    public static Driver with(final DriverID anId,
+                              final String aName,
+                              final Instant createdAt,
+                              final Instant updatedAt) {
+        return new Driver(
+                anId,
+                aName,
+                createdAt,
+                updatedAt
+        );
+    }
+
     @Override
     public void validate(ValidationHandler anHandler) {
         new DriverValidator(this, anHandler).validate();
@@ -46,7 +58,7 @@ public class Driver extends AggregateRoot<DriverID> implements Cloneable{
     public Driver clone() {
         try {
             return (Driver) super.clone();
-        }catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
     }
