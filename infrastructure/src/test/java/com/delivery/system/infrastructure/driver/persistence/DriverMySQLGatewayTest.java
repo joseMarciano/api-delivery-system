@@ -1,6 +1,7 @@
 package com.delivery.system.infrastructure.driver.persistence;
 
 import com.delivery.system.domain.driver.Driver;
+import com.delivery.system.domain.driver.DriverID;
 import com.delivery.system.infrastructure.MYSQLGatewayTest;
 import com.delivery.system.infrastructure.driver.DriverMySQLGateway;
 import org.junit.jupiter.api.Assertions;
@@ -65,6 +66,31 @@ public class DriverMySQLGatewayTest {
         assertNotNull(actualDriver.getCreatedAt());
         assertNotNull(actualDriver.getUpdatedAt());
         assertTrue(actualDriver.getUpdatedAt().isAfter(aDriver.getCreatedAt()));
+    }
+
+    @Test
+    public void givenAValidPrePersistedDriver_whenCallsFindById_shouldReturnADriver() {
+        final var aDriver = Driver.newDriver("John");
+        final var expectedId = aDriver.getId();
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.saveAndFlush(DriverJpaEntity.from(aDriver));
+        Assertions.assertEquals(1, driverRepository.count());
+
+        final var actualDriver = driverMySQLGateway.findById(expectedId).get();
+
+        assertEquals(actualDriver.getName(), aDriver.getName());
+        assertEquals(actualDriver.getId(), expectedId);
+        assertNotNull(actualDriver.getUpdatedAt());
+        assertNotNull(actualDriver.getCreatedAt());
+    }
+
+    @Test
+    public void givenANoExistingDriver_whenCallsFindById_shouldReturnEmpty() {
+        final var expectedId = DriverID.unique();
+        Assertions.assertEquals(0, driverRepository.count());
+        final var actualOuput = driverMySQLGateway.findById(expectedId);
+        Assertions.assertTrue(actualOuput.isEmpty());
     }
 
 }
