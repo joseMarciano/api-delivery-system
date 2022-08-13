@@ -44,7 +44,7 @@ public class DriverMySQLGateway implements DriverGateway {
 
     @Override
     public List<Driver> findAll() {
-        return null;
+        return driverRepository.findAll().stream().map(DriverJpaEntity::toAggregate).toList();
     }
 
     private Driver save(Driver aDriver) {
