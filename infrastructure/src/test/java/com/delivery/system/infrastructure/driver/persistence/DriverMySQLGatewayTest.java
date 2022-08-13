@@ -93,4 +93,26 @@ public class DriverMySQLGatewayTest {
         Assertions.assertTrue(actualOuput.isEmpty());
     }
 
+    @Test
+    public void givenAValidPrePersistedDriver_whenCallsDeleteById_shouldBeOk() {
+        final var aDriver = Driver.newDriver("John");
+        final var expectedId = aDriver.getId();
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.saveAndFlush(DriverJpaEntity.from(aDriver));
+        Assertions.assertEquals(1, driverRepository.count());
+
+        driverMySQLGateway.deleteById(expectedId);
+
+        Assertions.assertEquals(0, driverRepository.count());
+    }
+
+    @Test
+    public void givenANoExistingDriver_whenCallsDeleteById_shouldBeOk() {
+        final var expectedId = DriverID.unique();
+        Assertions.assertEquals(0, driverRepository.count());
+        driverMySQLGateway.deleteById(expectedId);
+        Assertions.assertEquals(0, driverRepository.count());
+    }
+
 }
