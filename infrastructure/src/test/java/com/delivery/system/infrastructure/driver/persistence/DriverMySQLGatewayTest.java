@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.function.Function;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @MYSQLGatewayTest
@@ -115,4 +118,36 @@ public class DriverMySQLGatewayTest {
         Assertions.assertEquals(0, driverRepository.count());
     }
 
+    @Test
+    public void givenPrePersistedDrivers_whenCallsListAllDriver_shouldReturnAListOfDrivers() {
+        final var expectedDrivers =
+                List.of(
+                        Driver.newDriver("John"),
+                        Driver.newDriver("Amanda")
+                );
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.saveAllAndFlush(mapTo(expectedDrivers, DriverJpaEntity::from));
+        Assertions.assertEquals(2, driverRepository.count());
+
+        final var actualDrivers = driverMySQLGateway.findAll();
+
+        assertTrue(
+                actualDrivers.size() == expectedDrivers.size()
+                        && expectedDrivers.containsAll(actualDrivers)
+        );
+    }
+
+    @Test
+    public void givenNoExistingDrivers_whenCallsListAllDriver_shouldReturnAEmptyList() {
+        final var expectedSizeList = 0;
+        Assertions.assertEquals(0, driverRepository.count());
+        final var actualDrivers = driverMySQLGateway.findAll();
+        assertEquals(expectedSizeList, actualDrivers.size());
+    }
+
+
+    private <I, O> List<O> mapTo(List<I> list, Function<I, O> mapper) {
+        return list.stream().map(mapper).toList();
+    }
 }
