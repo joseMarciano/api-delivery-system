@@ -37,7 +37,9 @@ public class DriverMySQLGateway implements DriverGateway {
 
     @Override
     public void deleteById(DriverID anId) {
-
+        if (driverRepository.existsById(anId.getValue())) {
+            driverRepository.deleteById(anId.getValue());
+        }
     }
 
     @Override
