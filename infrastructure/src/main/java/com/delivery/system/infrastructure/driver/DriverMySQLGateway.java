@@ -31,7 +31,8 @@ public class DriverMySQLGateway implements DriverGateway {
 
     @Override
     public Optional<Driver> findById(DriverID anId) {
-        return Optional.empty();
+        return driverRepository.findById(anId.getValue())
+                .map(DriverJpaEntity::toAggregate);
     }
 
     @Override
