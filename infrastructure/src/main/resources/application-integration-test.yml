@@ -1,0 +1,10 @@
+spring:
+  profiles: integration-test
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:order_manager;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    username: order_owner
+    password: a1b2c3f4e5
+  h2:
+    console:
+      enabled: true
