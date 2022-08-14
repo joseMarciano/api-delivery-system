@@ -1,9 +1,10 @@
-package com.delivery.system.infrastructure.driver.persistence;
+package com.delivery.system.infrastructure.driver;
 
 import com.delivery.system.domain.driver.Driver;
 import com.delivery.system.domain.driver.DriverID;
 import com.delivery.system.infrastructure.MYSQLGatewayTest;
-import com.delivery.system.infrastructure.driver.DriverMySQLGateway;
+import com.delivery.system.infrastructure.driver.persistence.DriverJpaEntity;
+import com.delivery.system.infrastructure.driver.persistence.DriverRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
