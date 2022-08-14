@@ -3,6 +3,7 @@ package com.delivery.system.domain.driver;
 import com.delivery.system.domain.AggregateRoot;
 import com.delivery.system.domain.validation.ValidationHandler;
 import com.delivery.system.domain.validation.handler.ThrowsValidationHandler;
+import com.delivery.system.util.InstantUtils;
 
 import java.time.Instant;
 
@@ -16,7 +17,7 @@ public class Driver extends AggregateRoot<DriverID> implements Cloneable {
 
     public static Driver newDriver(final String aName) {
         final var anId = DriverID.unique();
-        final var now = Instant.now();
+        final var now = InstantUtils.now();
         return new Driver(anId, aName, now, now);
     }
 
@@ -48,7 +49,7 @@ public class Driver extends AggregateRoot<DriverID> implements Cloneable {
 
     public Driver update(final String name) {
         this.name = name;
-        this.updatedAt = Instant.now();
+        this.updatedAt = InstantUtils.now();
 
         selfValidate();
         return this;
