@@ -9,6 +9,8 @@ import com.delivery.system.application.driver.findById.DefaultFindDriverByIdUseC
 import com.delivery.system.application.driver.findById.FindDriverByIdUseCase;
 import com.delivery.system.application.driver.retrieve.listAll.DefaultListAllDriverUseCase;
 import com.delivery.system.application.driver.retrieve.listAll.ListAllDriverUseCase;
+import com.delivery.system.application.driver.update.DefaultUpdateDriverUseCase;
+import com.delivery.system.application.driver.update.UpdateDriverUseCase;
 import com.delivery.system.domain.driver.DriverGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,5 +42,10 @@ public class ConfigDriverUseCase {
     @Bean
     public ListAllDriverUseCase listAllDriverUseCase() {
         return new DefaultListAllDriverUseCase(driverGateway);
+    }
+
+    @Bean
+    public UpdateDriverUseCase updateDriverUseCase() {
+        return new DefaultUpdateDriverUseCase(driverGateway);
     }
 }
