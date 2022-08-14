@@ -1,4 +1,4 @@
-package com.delivery.system.infrastructure;
+package com.delivery.system;
 
 
 import org.springframework.boot.SpringApplication;
