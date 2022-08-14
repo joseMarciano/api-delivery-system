@@ -5,6 +5,8 @@ import com.delivery.system.application.driver.create.CreateDriverUseCase;
 import com.delivery.system.application.driver.create.DefaultCreateDriverUseCase;
 import com.delivery.system.application.driver.deleteById.DefaultDeleteDriverByIdUseCase;
 import com.delivery.system.application.driver.deleteById.DeleteDriverByIdUseCase;
+import com.delivery.system.application.driver.findById.DefaultFindDriverByIdUseCase;
+import com.delivery.system.application.driver.findById.FindDriverByIdUseCase;
 import com.delivery.system.domain.driver.DriverGateway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,5 +28,10 @@ public class ConfigDriverUseCase {
     @Bean
     public DeleteDriverByIdUseCase deleteDriverByIdUseCase() {
         return new DefaultDeleteDriverByIdUseCase(driverGateway);
+    }
+
+    @Bean
+    public FindDriverByIdUseCase findDriverByIdUseCase() {
+        return new DefaultFindDriverByIdUseCase(driverGateway);
     }
 }
