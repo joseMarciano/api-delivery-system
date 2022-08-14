@@ -1,5 +1,6 @@
 package com.delivery.system;
 
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
@@ -18,5 +19,6 @@ import static org.springframework.context.annotation.ComponentScan.Filter;
         basePackages = "com.delivery.system",
         includeFilters = @Filter(type = FilterType.REGEX, pattern = "MySQLGateway$")
 )
+@ExtendWith(MYSQLGatewayCleanUpExtension.class)
 public @interface MYSQLGatewayTest {
 }
