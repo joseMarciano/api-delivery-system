@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("e2e-test")
-@ExtendWith(MYSQLGatewayCleanUpExtension.class)
+@ExtendWith(value = {PostgreContainerExtension.class, MYSQLGatewayCleanUpExtension.class})
 public @interface E2ETest {
 
 }
