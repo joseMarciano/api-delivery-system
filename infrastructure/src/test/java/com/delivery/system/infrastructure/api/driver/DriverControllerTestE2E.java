@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @E2ETest
-public class DriverControllerTest {
+public class DriverControllerTestE2E {
 
     private static final String BASE_PATH = "/drivers";
 
