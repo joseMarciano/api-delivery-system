@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 @Inherited
 @SpringBootTest
 @ActiveProfiles("e2e-test")
-@ExtendWith(value = {PostgreContainerExtension.class, MYSQLGatewayCleanUpExtension.class})
+@ExtendWith(value = {MYSQLGatewayCleanUpExtension.class})
 @AutoConfigureMockMvc
 public @interface E2ETest {
 }
