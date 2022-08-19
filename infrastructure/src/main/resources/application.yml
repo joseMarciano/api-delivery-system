@@ -1,3 +1,12 @@
 server:
   servlet:
     context-path: /api
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:postgresql://localhost/order_manager
+    username: order_owner
+    password: a1b2c3f4e5
