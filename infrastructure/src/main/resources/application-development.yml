@@ -1,0 +1,7 @@
+postgre:
+  database: order_manager
+  url: localhost
+  username: order_owner
+  password: a1b2c3f4e5
+
+

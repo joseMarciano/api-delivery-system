@@ -4,21 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="589937a2-0123-4468-89f6-50dfdd46ec9e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+    <list default="true" id="589937a2-0123-4468-89f6-50dfdd46ec9e" name="Changes" comment="chore: :wrench: add dependency to run hibernate correctly">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/application-development.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,9 +22,50 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="delivery-system" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="delivery-system" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="delivery-system" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="flyway" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="delivery-system" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="AnnotationType" />
+        <option value="Record" />
+        <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -43,20 +76,161 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectId" id="2D6CflK24pqkLtaUV7ZZt7yOLJA" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "jdk.selected.JAVA_MODULE": "corretto-17",
-    "last_opened_file_path": "/home/jose/JOSEPAULO/fc3-admin-catalog"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/jose/JOSEPAULO/fc3-admin-catalog&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/infrastructure/src/main/resources" />
+      <recent name="$PROJECT_DIR$/domain/src/main/java/com/delivery/system/domain/exceptions" />
+      <recent name="$PROJECT_DIR$/public" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/infrastructure/src/test/resources" />
+      <recent name="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.delivery.system.infrastructure.driver" />
+      <recent name="com.delivery.system.domain" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.delivery.system.application.driver.update" />
+      <recent name="com.delivery.system.application.driver.listAll" />
+      <recent name="com.delivery.system.application.driver.findById" />
+      <recent name="com.delivery.system.application.driver.deleteById" />
+      <recent name="com.delivery.system.application.driver.create" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Application">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.delivery.system.Application" />
+      <module name="delivery-system.infrastructure.main" />
+      <option name="VM_PARAMETERS" value="-Dspring.profiles.active=development" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.delivery.system.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DriverControllerTestE2E" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":infrastructure:test" />
+            <option value="--tests" />
+            <option value="&quot;com.delivery.system.infrastructure.api.driver.DriverControllerTestE2E&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="DriverControllerTestE2E.asAUser_IShouldBeAbleToCreateADriverWithValidValues" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":infrastructure:test" />
+            <option value="--tests" />
+            <option value="&quot;com.delivery.system.infrastructure.api.driver.DriverControllerTestE2E.asAUser_IShouldBeAbleToCreateADriverWithValidValues&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="delivery-system [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yaml.db: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="db" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Application" />
+      <item itemvalue="Docker.docker-compose.yaml.db: Compose Deployment" />
+      <item itemvalue="Gradle.delivery-system [dependencies]" />
+      <item itemvalue="Gradle.DriverControllerTestE2E" />
+      <item itemvalue="Gradle.DriverControllerTestE2E.asAUser_IShouldBeAbleToCreateADriverWithValidValues" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.delivery-system [dependencies]" />
+        <item itemvalue="Docker.docker-compose.yaml.db: Compose Deployment" />
+        <item itemvalue="Application.Application" />
+        <item itemvalue="Gradle.DriverControllerTestE2E" />
+        <item itemvalue="Gradle.DriverControllerTestE2E.asAUser_IShouldBeAbleToCreateADriverWithValidValues" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -66,7 +240,354 @@
       <option name="presentableId" value="Default" />
       <updated>1660010255433</updated>
     </task>
+    <task id="LOCAL-00033" summary="feat: :sparkles: create abstraction for NullaryUseCase">
+      <created>1660262797104</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1660262797104</updated>
+    </task>
+    <task id="LOCAL-00034" summary="feat: :sparkles: create implementation of ListAllDriverUseCase">
+      <created>1660262825274</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1660262825274</updated>
+    </task>
+    <task id="LOCAL-00035" summary="test: :test_tube: implements tests about DefaultListAllDriverUseCase">
+      <created>1660262839686</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1660262839686</updated>
+    </task>
+    <task id="LOCAL-00036" summary="chore: :wrench: install base dependencies about infrastructure layer">
+      <created>1660402181611</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1660402181611</updated>
+    </task>
+    <task id="LOCAL-00037" summary="chore: :wrench: create a config default config file and integration-test config file">
+      <created>1660402223514</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1660402223514</updated>
+    </task>
+    <task id="LOCAL-00038" summary="feat: :sparkles: create implementation of Spring-boot application">
+      <created>1660402265353</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1660402265353</updated>
+    </task>
+    <task id="LOCAL-00039" summary="feat: :sparkles: create implementation of a generic annotation for MYSQLGateway tests">
+      <created>1660402303082</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1660402303082</updated>
+    </task>
+    <task id="LOCAL-00040" summary="feat: :sparkles: create DriverMySQLGateway without implementations">
+      <created>1660402350593</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1660402350593</updated>
+    </task>
+    <task id="LOCAL-00041" summary="feat: :sparkles: create DriverRepository jpa">
+      <created>1660402367607</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1660402367607</updated>
+    </task>
+    <task id="LOCAL-00042" summary="feat: :sparkles: create DriverJpaEntity">
+      <created>1660402383557</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1660402383557</updated>
+    </task>
+    <task id="LOCAL-00043" summary="feat: :sparkles: create implementation of DriverMySQLGateway create">
+      <created>1660409452398</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1660409452398</updated>
+    </task>
+    <task id="LOCAL-00044" summary="test: :test_tube: implements tests about DriverMySQLGateway create">
+      <created>1660409478362</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1660409478362</updated>
+    </task>
+    <task id="LOCAL-00045" summary="feat: :sparkles: create implementation of DriverMySQLGateway update">
+      <created>1660410737853</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1660410737853</updated>
+    </task>
+    <task id="LOCAL-00046" summary="test: :test_tube: implements tests about DriverMySQLGateway update">
+      <created>1660410751320</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1660410751320</updated>
+    </task>
+    <task id="LOCAL-00047" summary="feat: :sparkles: create implementation of DriverMySQLGateway findById">
+      <created>1660411240416</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1660411240416</updated>
+    </task>
+    <task id="LOCAL-00048" summary="test: :test_tube: implements tests about DriverMySQLGateway findById">
+      <created>1660411257401</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1660411257401</updated>
+    </task>
+    <task id="LOCAL-00049" summary="feat: :sparkles: create implementation of DriverMySQLGateway deleteById">
+      <created>1660411736647</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1660411736647</updated>
+    </task>
+    <task id="LOCAL-00050" summary="test: :test_tube: implements tests about DriverMySQLGateway deleteById">
+      <created>1660411751258</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1660411751259</updated>
+    </task>
+    <task id="LOCAL-00051" summary="feat: :sparkles: create implementation of DriverMySQLGateway findAll">
+      <created>1660412214535</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1660412214536</updated>
+    </task>
+    <task id="LOCAL-00052" summary="test: :test_tube: implements tests about DriverMySQLGateway findById">
+      <created>1660412228961</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1660412228961</updated>
+    </task>
+    <task id="LOCAL-00053" summary="refactor: :hammer: change package">
+      <created>1660482896988</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1660482896989</updated>
+    </task>
+    <task id="LOCAL-00054" summary="refactor: :hammer: change package">
+      <created>1660483490088</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1660483490088</updated>
+    </task>
+    <task id="LOCAL-00055" summary="refactor: :hammer: create truncated Instant.now()">
+      <created>1660484865048</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1660484865048</updated>
+    </task>
+    <task id="LOCAL-00056" summary="chore: :wrench: create Generic annotation for IntegrationTest">
+      <created>1660485125482</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1660485125483</updated>
+    </task>
+    <task id="LOCAL-00057" summary="test: :test_tube: implements tests about CreateDriverUseCase integration test">
+      <created>1660485144657</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1660485144658</updated>
+    </task>
+    <task id="LOCAL-00058" summary="chore: :wrench: create Extension for clean repository beforeEach test">
+      <created>1660486874632</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1660486874632</updated>
+    </task>
+    <task id="LOCAL-00059" summary="feat: :sparkles: create implementation of DeleteDriverById bean">
+      <created>1660486940699</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1660486940699</updated>
+    </task>
+    <task id="LOCAL-00060" summary="test: :test_tube: implements DeleteDriverByIdUseCase integration test">
+      <created>1660486972045</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1660486972045</updated>
+    </task>
+    <task id="LOCAL-00061" summary="feat: :sparkles: create implementation of FindDriverByIdUseCase bean">
+      <created>1660487495498</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1660487495498</updated>
+    </task>
+    <task id="LOCAL-00062" summary="test: :test_tube: implements FindDriverByIdUseCase integration test">
+      <created>1660487515361</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1660487515361</updated>
+    </task>
+    <task id="LOCAL-00063" summary="feat: :sparkles: create implementation of ListAllDriverUseCase bean">
+      <created>1660488761245</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1660488761246</updated>
+    </task>
+    <task id="LOCAL-00064" summary="test: :test_tube: implements ListAllDriverUseCase integration test">
+      <created>1660488780297</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1660488780297</updated>
+    </task>
+    <task id="LOCAL-00065" summary="feat: :sparkles: create implementation of UpdateDriverUseCase bean">
+      <created>1660489273480</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1660489273480</updated>
+    </task>
+    <task id="LOCAL-00066" summary="test: :test_tube: implements UpdateDriverUseCase integration test">
+      <created>1660489295374</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1660489295374</updated>
+    </task>
+    <task id="LOCAL-00067" summary="chore: :wrench: create configuration for test containers">
+      <created>1660618073496</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1660618073496</updated>
+    </task>
+    <task id="LOCAL-00068" summary="chore: :wrench: create Generic annotation for E2ETest">
+      <created>1660618096396</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1660618096396</updated>
+    </task>
+    <task id="LOCAL-00069" summary="chore: :wrench: create a Extension for postgres container">
+      <created>1660651691436</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1660651691436</updated>
+    </task>
+    <task id="LOCAL-00070" summary="fix: :bug: makes E2E work correctly with MockMvc">
+      <created>1660702499884</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1660702499884</updated>
+    </task>
+    <task id="LOCAL-00071" summary="chore: :wrench: create prefix for api">
+      <created>1660773648802</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1660773648802</updated>
+    </task>
+    <task id="LOCAL-00072" summary="chore: :wrench: create specific ObjectMapper for application and tests">
+      <created>1660779499667</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1660779499667</updated>
+    </task>
+    <task id="LOCAL-00073" summary="feat: :sparkles: create implementation of DriverController create test">
+      <created>1660779548308</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1660779548308</updated>
+    </task>
+    <task id="LOCAL-00074" summary="test: :test_tube: create implementation of DriverController create test">
+      <created>1660779561891</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1660779561891</updated>
+    </task>
+    <task id="LOCAL-00075" summary="refactor: :hammer: rename test file">
+      <created>1660780095863</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1660780095863</updated>
+    </task>
+    <task id="LOCAL-00076" summary="refactor: :hammer: remove wrong implementation about test containers">
+      <created>1660786877579</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1660786877579</updated>
+    </task>
+    <task id="LOCAL-00077" summary="refactor: :hammer: remove profiles prop">
+      <created>1660787156917</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1660787156917</updated>
+    </task>
+    <task id="LOCAL-00078" summary="chore: :wrench: add prefix to access the server">
+      <created>1660787179745</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1660787179745</updated>
+    </task>
+    <task id="LOCAL-00079" summary="chore: :wrench: create compose for database">
+      <created>1660936582367</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1660936582368</updated>
+    </task>
+    <task id="LOCAL-00080" summary="chore: :wrench: configure default application">
+      <created>1660936604412</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1660936604412</updated>
+    </task>
+    <task id="LOCAL-00081" summary="chore: :wrench: add dependency to run hibernate correctly">
+      <created>1660936660045</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1660936660045</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.sql" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -78,5 +599,66 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test: :test_tube: implements tests about CreateDriverUseCase integration test" />
+    <MESSAGE value="chore: :wrench: create Extension for clean repository beforeEach test" />
+    <MESSAGE value="feat: :sparkles: create implementation of DeleteDriverById bean" />
+    <MESSAGE value="test: :test_tube: implements DeleteDriverByIdUseCase integration test" />
+    <MESSAGE value="feat: :sparkles: create implementation of FindDriverByIdUseCase bean" />
+    <MESSAGE value="test: :test_tube: implements FindDriverByIdUseCase integration test" />
+    <MESSAGE value="feat: :sparkles: create implementation of ListAllDriverUseCase bean" />
+    <MESSAGE value="test: :test_tube: implements ListAllDriverUseCase integration test" />
+    <MESSAGE value="feat: :sparkles: create implementation of UpdateDriverUseCase bean" />
+    <MESSAGE value="test: :test_tube: implements UpdateDriverUseCase integration test" />
+    <MESSAGE value="chore: :wrench: create configuration for test containers" />
+    <MESSAGE value="chore: :wrench: create Generic annotation for E2ETest" />
+    <MESSAGE value="chore: :wrench: create a Extension for postgres container" />
+    <MESSAGE value="fix: :bug: makes E2E work correctly with MockMvc" />
+    <MESSAGE value="chore: :wrench: create prefix for api" />
+    <MESSAGE value="chore: :wrench: create specific ObjectMapper for application and tests" />
+    <MESSAGE value="feat: :sparkles: create implementation of DriverController create test" />
+    <MESSAGE value="test: :test_tube: create implementation of DriverController create test" />
+    <MESSAGE value="refactor: :hammer: rename test file" />
+    <MESSAGE value="refactor: :hammer: remove wrong implementation about test containers" />
+    <MESSAGE value="refactor: :hammer: remove profiles prop" />
+    <MESSAGE value="chore: :wrench: add prefix to access the server" />
+    <MESSAGE value="chore: :wrench: create compose for database" />
+    <MESSAGE value="chore: :wrench: configure default application" />
+    <MESSAGE value="chore: :wrench: add dependency to run hibernate correctly" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: :wrench: add dependency to run hibernate correctly" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/main/java/com/delivery/system/infrastructure/api/driver/DriverController.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/api/driver/DriverControllerTestE2E.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/MYSQLGatewayCleanUpExtension.java</url>
+          <line>18</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/api/driver/DriverControllerTestE2E.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/main/java/com/delivery/system/Application.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

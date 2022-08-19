@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "org.flywaydb.flyway" version "9.1.5"
 }
 
 group 'com.delivery.system.infrastructure'
@@ -16,7 +17,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.2")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.2")
     implementation("org.postgresql:postgresql:42.4.1")
-//    implementation("org.flywaydb:flyway-core:9.1.5")
 
 //    https://stackoverflow.com/questions/47503046/error-creating-bean-with-name-entitymanagerfactory-when-add-spring-boot-jpa-de
     runtimeOnly("javax.xml.bind:jaxb-api:2.3.1")
@@ -28,9 +28,16 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.2")
     testImplementation("com.h2database:h2:2.1.214")
+    testImplementation("org.flywaydb:flyway-core:9.1.5")
 
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+}
+
+flyway {
+    url = System.getenv('FLYWAY_URL') ?: 'jdbc:postgresql://localhost/order_manager'
+    user = System.getenv('FLYWAY_USER') ?: 'order_owner'
+    password = System.getenv('FLYWAY_PASSWORD') ?: 'a1b2c3f4e5'
 }
 
 test {
