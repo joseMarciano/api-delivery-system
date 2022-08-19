@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+
+  db:
+    container_name: 'postgres-order-manager'
+    image: postgres:14.5-bullseye
+    restart: 'no'
+    network_mode: 'host'
+    environment:
+      POSTGRES_PASSWORD: a1b2c3f4e5
+      POSTGRES_USER: order_owner
+      POSTGRES_DB: order_manager
