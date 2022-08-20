@@ -4,9 +4,10 @@ server:
 
 spring:
   jpa:
+    show-sql: false
     hibernate:
       ddl-auto: none
   datasource:
-    url: jdbc:postgresql://${postgre.url}/${postgre.database}
+    url: jdbc:postgresql://${postgre.url}:${postgre.port}/${postgre.database}
     username: ${postgre.username}
     password: ${postgre.password}
