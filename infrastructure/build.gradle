@@ -22,8 +22,8 @@ dependencies {
     runtimeOnly("javax.xml.bind:jaxb-api:2.3.1")
 
 
-//    testImplementation("org.testcontainers:junit-jupiter:1.17.3")
-//    testImplementation("org.testcontainers:postgresql:1.17.3")
+    testImplementation("org.testcontainers:junit-jupiter:1.17.3")
+    testImplementation("org.testcontainers:postgresql:1.17.3")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.2")
@@ -38,6 +38,7 @@ flyway {
     url = System.getenv('FLYWAY_URL') ?: 'jdbc:postgresql://localhost/order_manager'
     user = System.getenv('FLYWAY_USER') ?: 'order_owner'
     password = System.getenv('FLYWAY_PASSWORD') ?: 'a1b2c3f4e5'
+    cleanDisabled = System.getenv('FLYWAY_CLEAN_DISABLED') ?: 'true'
 }
 
 test {
