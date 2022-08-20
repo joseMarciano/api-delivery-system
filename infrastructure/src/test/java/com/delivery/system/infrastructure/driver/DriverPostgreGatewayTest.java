@@ -1,6 +1,6 @@
 package com.delivery.system.infrastructure.driver;
 
-import com.delivery.system.MYSQLGatewayTest;
+import com.delivery.system.PostgreGatewayTest;
 import com.delivery.system.domain.driver.Driver;
 import com.delivery.system.domain.driver.DriverID;
 import com.delivery.system.infrastructure.driver.persistence.DriverJpaEntity;
@@ -14,8 +14,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@MYSQLGatewayTest
-public class DriverMySQLGatewayTest {
+@PostgreGatewayTest
+public class DriverPostgreGatewayTest {
 
     @Autowired
     private DriverMySQLGateway driverMySQLGateway;
