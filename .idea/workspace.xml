@@ -4,13 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="589937a2-0123-4468-89f6-50dfdd46ec9e" name="Changes" comment="chore: :wrench: add dependency to run hibernate correctly">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/application-development.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="589937a2-0123-4468-89f6-50dfdd46ec9e" name="Changes" comment="feat: :sparkles: create migration for DRIVERS">
+      <change afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/application-e2e-test.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/FlyWayConfigTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/FlyWayMigrationExtension.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/infrastructure/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/main/resources/application-development.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/application-development.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/main/resources/application-integration-test.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/application-integration-test.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/main/resources/application.e2e-test.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/infrastructure/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/main/resources/db/migration/U1__create_driver_table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/main/resources/db/migration/V1__create_driver_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/main/resources/db/migration/V1__create_driver_table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/E2ETest.java" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/E2ETest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/IntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/IntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/MYSQLGatewayCleanUpExtension.java" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/PostgreGatewayCleanUpExtension.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/MYSQLGatewayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/PostgreGatewayTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/api/driver/DriverControllerTestE2E.java" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/api/driver/DriverControllerTestE2E.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/driver/DriverMySQLGatewayTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/driver/DriverMySQLGatewayTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,25 +96,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/jose/JOSEPAULO/fc3-admin-catalog&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "jdk.selected.JAVA_MODULE": "corretto-17",
+    "last_opened_file_path": "/home/jose/JOSEPAULO/fc3-admin-catalog",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/infrastructure/src/test/resources" />
+      <recent name="$PROJECT_DIR$/infrastructure/src/main/resources/db/migration" />
       <recent name="$PROJECT_DIR$/infrastructure/src/main/resources" />
       <recent name="$PROJECT_DIR$/domain/src/main/java/com/delivery/system/domain/exceptions" />
       <recent name="$PROJECT_DIR$/public" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/infrastructure/src/test/resources/db" />
       <recent name="$PROJECT_DIR$/infrastructure/src/test/resources" />
       <recent name="$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system" />
     </key>
@@ -112,24 +126,18 @@
       <recent name="com.delivery.system.domain" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.delivery.system" />
       <recent name="com.delivery.system.application.driver.update" />
       <recent name="com.delivery.system.application.driver.listAll" />
       <recent name="com.delivery.system.application.driver.findById" />
       <recent name="com.delivery.system.application.driver.deleteById" />
-      <recent name="com.delivery.system.application.driver.create" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Application">
-    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Gradle.delivery-system [test]">
+    <configuration name="Run" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.delivery.system.Application" />
       <module name="delivery-system.infrastructure.main" />
       <option name="VM_PARAMETERS" value="-Dspring.profiles.active=development" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.delivery.system.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -180,7 +188,7 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="delivery-system [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="delivery-system [flywayClean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -191,7 +199,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="dependencies" />
+            <option value="flywayClean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -201,33 +209,63 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="docker-compose.yaml.db: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="services">
-            <list>
-              <option value="db" />
-            </list>
-          </option>
-          <option name="sourceFilePath" value="docker-compose.yaml" />
-        </settings>
-      </deployment>
+    <configuration name="delivery-system [flywayMigrate]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="flywayMigrate" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="delivery-system [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.Application" />
-      <item itemvalue="Docker.docker-compose.yaml.db: Compose Deployment" />
-      <item itemvalue="Gradle.delivery-system [dependencies]" />
-      <item itemvalue="Gradle.DriverControllerTestE2E" />
+      <item itemvalue="Application.Run" />
+      <item itemvalue="Gradle.delivery-system [flywayClean]" />
+      <item itemvalue="Gradle.delivery-system [test]" />
       <item itemvalue="Gradle.DriverControllerTestE2E.asAUser_IShouldBeAbleToCreateADriverWithValidValues" />
+      <item itemvalue="Gradle.delivery-system [flywayMigrate]" />
+      <item itemvalue="Gradle.DriverControllerTestE2E" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.delivery-system [dependencies]" />
-        <item itemvalue="Docker.docker-compose.yaml.db: Compose Deployment" />
-        <item itemvalue="Application.Application" />
+        <item itemvalue="Gradle.delivery-system [test]" />
         <item itemvalue="Gradle.DriverControllerTestE2E" />
         <item itemvalue="Gradle.DriverControllerTestE2E.asAUser_IShouldBeAbleToCreateADriverWithValidValues" />
+        <item itemvalue="Gradle.delivery-system [flywayClean]" />
+        <item itemvalue="Gradle.delivery-system [flywayMigrate]" />
       </list>
     </recent_temporary>
   </component>
@@ -239,20 +277,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1660010255433</updated>
-    </task>
-    <task id="LOCAL-00033" summary="feat: :sparkles: create abstraction for NullaryUseCase">
-      <created>1660262797104</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1660262797104</updated>
-    </task>
-    <task id="LOCAL-00034" summary="feat: :sparkles: create implementation of ListAllDriverUseCase">
-      <created>1660262825274</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1660262825274</updated>
     </task>
     <task id="LOCAL-00035" summary="test: :test_tube: implements tests about DefaultListAllDriverUseCase">
       <created>1660262839686</created>
@@ -583,7 +607,21 @@
       <option name="project" value="LOCAL" />
       <updated>1660936660045</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="chore: :wrench: create a separate environment for development and add flyway support">
+      <created>1660939344379</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1660939344379</updated>
+    </task>
+    <task id="LOCAL-00083" summary="feat: :sparkles: create migration for DRIVERS">
+      <created>1660940185231</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1660940185231</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -601,8 +639,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="test: :test_tube: implements tests about CreateDriverUseCase integration test" />
-    <MESSAGE value="chore: :wrench: create Extension for clean repository beforeEach test" />
     <MESSAGE value="feat: :sparkles: create implementation of DeleteDriverById bean" />
     <MESSAGE value="test: :test_tube: implements DeleteDriverByIdUseCase integration test" />
     <MESSAGE value="feat: :sparkles: create implementation of FindDriverByIdUseCase bean" />
@@ -626,7 +662,9 @@
     <MESSAGE value="chore: :wrench: create compose for database" />
     <MESSAGE value="chore: :wrench: configure default application" />
     <MESSAGE value="chore: :wrench: add dependency to run hibernate correctly" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: :wrench: add dependency to run hibernate correctly" />
+    <MESSAGE value="chore: :wrench: create a separate environment for development and add flyway support" />
+    <MESSAGE value="feat: :sparkles: create migration for DRIVERS" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: :sparkles: create migration for DRIVERS" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -634,29 +672,24 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/infrastructure/src/main/java/com/delivery/system/infrastructure/api/driver/DriverController.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/api/driver/DriverControllerTestE2E.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/MYSQLGatewayCleanUpExtension.java</url>
-          <line>18</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/api/driver/DriverControllerTestE2E.java</url>
-          <line>29</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/infrastructure/src/main/java/com/delivery/system/Application.java</url>
           <line>10</line>
           <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/api/driver/DriverControllerTestE2E.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/infrastructure/api/driver/DriverControllerTestE2E.java</url>
+          <line>79</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/infrastructure/src/test/java/com/delivery/system/FlyWayConfigTest.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="72" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
