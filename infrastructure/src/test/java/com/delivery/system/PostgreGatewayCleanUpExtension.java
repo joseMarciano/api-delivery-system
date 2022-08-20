@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-public class MYSQLGatewayCleanUpExtension implements BeforeEachCallback {
+public class PostgreGatewayCleanUpExtension implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) throws Exception {

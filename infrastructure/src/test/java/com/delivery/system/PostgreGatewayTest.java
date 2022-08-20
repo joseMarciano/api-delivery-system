@@ -19,6 +19,6 @@ import static org.springframework.context.annotation.ComponentScan.Filter;
         basePackages = "com.delivery.system",
         includeFilters = @Filter(type = FilterType.REGEX, pattern = "MySQLGateway$")
 )
-@ExtendWith(MYSQLGatewayCleanUpExtension.class)
-public @interface MYSQLGatewayTest {
+@ExtendWith(PostgreGatewayCleanUpExtension.class)
+public @interface PostgreGatewayTest {
 }
