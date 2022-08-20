@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @ActiveProfiles("integration-test")
-@ExtendWith(MYSQLGatewayCleanUpExtension.class)
+@ExtendWith(PostgreGatewayCleanUpExtension.class)
 @SpringBootTest
 public @interface IntegrationTest {
 }
