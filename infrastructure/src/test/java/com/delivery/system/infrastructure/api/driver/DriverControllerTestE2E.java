@@ -86,7 +86,101 @@ public class DriverControllerTestE2E {
         Assertions.assertEquals(actualResponseBody.name(), actualEntity.getName());
         Assertions.assertEquals(actualResponseBody.updatedAt(), actualEntity.getUpdatedAt());
         Assertions.assertEquals(actualResponseBody.createdAt(), actualEntity.getCreatedAt());
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeTreatedErrorOnCreateDriverWithEmptyName() throws Exception {
+        final var expectedName = "  ";
+
+        final var expectedErrorMessage = "'name' should not be null";
+        final var expectedErrorCount = 1;
+
+        final var aRequestInput = new CreateDriverRequest(expectedName);
+
+        Assertions.assertEquals(0, driverRepository.count());
+
+        final var request =
+                MockMvcRequestBuilders.post(BASE_PATH)
+                        .content(Json.writeValueAsString(aRequestInput))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON);
 
 
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.equalTo(expectedErrorMessage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors", Matchers.hasSize(expectedErrorCount)))
+                .andExpect(MockMvcResultMatchers.header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        Assertions.assertEquals(0, driverRepository.count());
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeTreatedErrorOnCreateDriverWithNullName() throws Exception {
+        final String expectedName = null;
+
+        final var expectedErrorMessage = "'name' should not be null";
+        final var expectedErrorCount = 1;
+
+        final var aRequestInput = new CreateDriverRequest(expectedName);
+
+        Assertions.assertEquals(0, driverRepository.count());
+
+        final var request =
+                MockMvcRequestBuilders.post(BASE_PATH)
+                        .content(Json.writeValueAsString(aRequestInput))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON);
+
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.equalTo(expectedErrorMessage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors", Matchers.hasSize(expectedErrorCount)))
+                .andExpect(MockMvcResultMatchers.header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        Assertions.assertEquals(0, driverRepository.count());
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeTreatedErrorOnCreateDriverWithNameMoreThan256Characters() throws Exception {
+        final String expectedName = """
+                O empenho em analisar a constante divulgação das informações faz parte 
+                de um processo de gerenciamento das posturas dos órgãos dirigentes com
+                 relação às suas atribuições. Do mesmo modo, o novo modelo estrutural aqui
+                  preconizado nos obriga à análise dos modos de operação convencionais. 
+                  Pensando mais a longo prazo, o desenvolvimento contínuo de distintas 
+                  formas de atuação pode nos levar a considerar a reestruturação das 
+                  direções preferenciais no sentido do progresso. A nível organizacional,
+                   o surgimento do comércio virtual facilita a criação do remanejamento
+                    dos quadros funcionais. Gostaria de enfatizar que o comprometimento 
+                    entre as equipes obstaculiza a apreciação da importância das diretrizes 
+                    de desenvolvimento para o futuro.
+                   """;
+
+        final var expectedErrorMessage = "'name' should be between 1 and 255 characters";
+        final var expectedErrorCount = 1;
+
+        final var aRequestInput = new CreateDriverRequest(expectedName);
+
+        Assertions.assertEquals(0, driverRepository.count());
+
+        final var request =
+                MockMvcRequestBuilders.post(BASE_PATH)
+                        .content(Json.writeValueAsString(aRequestInput))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON);
+
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.equalTo(expectedErrorMessage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors", Matchers.hasSize(expectedErrorCount)))
+                .andExpect(MockMvcResultMatchers.header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        Assertions.assertEquals(0, driverRepository.count());
     }
 }
