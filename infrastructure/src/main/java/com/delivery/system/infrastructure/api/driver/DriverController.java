@@ -2,6 +2,8 @@ package com.delivery.system.infrastructure.api.driver;
 
 import com.delivery.system.application.driver.create.CreateDriverCommand;
 import com.delivery.system.application.driver.create.CreateDriverUseCase;
+import com.delivery.system.application.driver.deleteById.DeleteDriverByIdCommand;
+import com.delivery.system.application.driver.deleteById.DeleteDriverByIdUseCase;
 import com.delivery.system.application.driver.findById.FindDriverByIdCommand;
 import com.delivery.system.application.driver.findById.FindDriverByIdUseCase;
 import com.delivery.system.application.driver.update.UpdateDriverUseCase;
@@ -20,13 +22,16 @@ public class DriverController implements DriverAPI {
     private final CreateDriverUseCase createDriverUseCase;
     private final UpdateDriverUseCase updateDriverUseCase;
     private final FindDriverByIdUseCase findDriverByIdUseCase;
+    private final DeleteDriverByIdUseCase deleteDriverByIdUseCase;
 
     public DriverController(CreateDriverUseCase createDriverUseCase,
                             UpdateDriverUseCase updateDriverUseCase,
-                            FindDriverByIdUseCase findDriverByIdUseCase) {
+                            FindDriverByIdUseCase findDriverByIdUseCase,
+                            DeleteDriverByIdUseCase deleteDriverByIdUseCase) {
         this.createDriverUseCase = createDriverUseCase;
         this.updateDriverUseCase = updateDriverUseCase;
         this.findDriverByIdUseCase = findDriverByIdUseCase;
+        this.deleteDriverByIdUseCase = deleteDriverByIdUseCase;
     }
 
     @Override
@@ -44,5 +49,10 @@ public class DriverController implements DriverAPI {
     public ResponseEntity<FindDriverByIdResponse> findById(String anId) {
         final var anOutput = findDriverByIdUseCase.execute(FindDriverByIdCommand.with(anId));
         return ResponseEntity.ok(DriverPresenters.present(anOutput));
+    }
+
+    @Override
+    public void update(String anId) {
+        deleteDriverByIdUseCase.execute(DeleteDriverByIdCommand.with(anId));
     }
 }

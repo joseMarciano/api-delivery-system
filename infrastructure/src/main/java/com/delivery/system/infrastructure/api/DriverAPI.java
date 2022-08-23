@@ -35,6 +35,11 @@ public interface DriverAPI {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     ResponseEntity<FindDriverByIdResponse> findById(@PathVariable("id") String anId);
 
+    @DeleteMapping(
+            value = "{id}"
+    )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void update(@PathVariable("id") String anId);
 
 }
 
