@@ -414,4 +414,49 @@ public class DriverControllerTestE2E {
         Assertions.assertEquals(0, driverRepository.count());
     }
 
+    @Test
+    public void asAUser_IShouldBeAbleToRemoveAExistentDriverSuccessfully() throws Exception {
+        final var aDriver = Driver.newDriver("John");
+        final var expectedId = aDriver.getId();
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.save(DriverJpaEntity.from(aDriver));
+        Assertions.assertEquals(1, driverRepository.count());
+
+
+        final var request =
+                MockMvcRequestBuilders.delete(BASE_PATH + "/{id}", expectedId.getValue());
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNoContent())
+                .andReturn();
+
+        final var optionalEntity = driverRepository.findById(expectedId.getValue());
+
+        Assertions.assertTrue(optionalEntity.isEmpty());
+        Assertions.assertEquals(0, driverRepository.count());
+
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleRemoveWithoutExistingDriver() throws Exception {
+        final var expectedId = DriverID.from("123");
+
+        Assertions.assertEquals(0, driverRepository.count());
+
+
+        final var request =
+                MockMvcRequestBuilders.delete(BASE_PATH + "/{id}", expectedId.getValue());
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNoContent())
+                .andReturn();
+
+        final var optionalEntity = driverRepository.findById(expectedId.getValue());
+
+        Assertions.assertTrue(optionalEntity.isEmpty());
+        Assertions.assertEquals(0, driverRepository.count());
+
+    }
+
 }
