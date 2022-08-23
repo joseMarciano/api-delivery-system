@@ -14,7 +14,12 @@
     <img src="/public/diagram-delivery-system.png">
 </div>
 
-
-
 ## :ballot_box_with_check: Progress of the project
+
 - [x] Initialize application
+- [x] Create drivers
+
+## :scroll: How you can run this application?
+
+- You need to run ``docker-compose up -d`` on the root application
+- You need to run ``./gradlew flywayMigrate`` to run migrations inside the container
