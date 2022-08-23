@@ -2,8 +2,11 @@ package com.delivery.system.infrastructure.api.driver;
 
 import com.delivery.system.E2ETest;
 import com.delivery.system.configs.json.Json;
+import com.delivery.system.domain.driver.Driver;
 import com.delivery.system.infrastructure.driver.models.create.CreateDriverRequest;
 import com.delivery.system.infrastructure.driver.models.create.CreateDriverResponse;
+import com.delivery.system.infrastructure.driver.models.update.UpdateDriverRequest;
+import com.delivery.system.infrastructure.driver.persistence.DriverJpaEntity;
 import com.delivery.system.infrastructure.driver.persistence.DriverRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
@@ -182,5 +185,172 @@ public class DriverControllerTestE2E {
                 .andReturn();
 
         Assertions.assertEquals(0, driverRepository.count());
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToUpdateAExistentDriverSuccessfully() throws Exception {
+        final var aDriver = Driver.newDriver("jo");
+
+        final var expectedName = "John";
+        final var expectedId = aDriver.getId();
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.save(DriverJpaEntity.from(aDriver));
+        Assertions.assertEquals(1, driverRepository.count());
+
+
+        final var aRequestInput = new UpdateDriverRequest(expectedId.getValue(), expectedName);
+
+        final var request =
+                MockMvcRequestBuilders.put(BASE_PATH + "/{id}", expectedId.getValue())
+                        .content(Json.writeValueAsString(aRequestInput))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+        final var actualEntity = driverRepository.findById(expectedId.getValue()).get();
+
+        Assertions.assertEquals(expectedId.getValue(), actualEntity.getId());
+        Assertions.assertEquals(actualEntity.getName(), expectedName);
+        Assertions.assertNotNull(actualEntity.getUpdatedAt());
+        Assertions.assertNotNull(actualEntity.getCreatedAt());
+        Assertions.assertTrue(actualEntity.getCreatedAt().isBefore(actualEntity.getUpdatedAt()));
+
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeATreatedErrorOnNameIsEmpty() throws Exception {
+        final var aDriver = Driver.newDriver("jo");
+
+        final var expectedName = aDriver.getName();
+        final var expectedId = aDriver.getId();
+
+        final var expectedErrorMessage = "'name' should not be null";
+        final var expectedErrorCount = 1;
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.save(DriverJpaEntity.from(aDriver));
+        Assertions.assertEquals(1, driverRepository.count());
+
+
+        final var aRequestInput = new UpdateDriverRequest(expectedId.getValue(), "  ");
+
+        final var request =
+                MockMvcRequestBuilders.put(BASE_PATH + "/{id}", expectedId.getValue())
+                        .content(Json.writeValueAsString(aRequestInput))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.equalTo(expectedErrorMessage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors", Matchers.hasSize(expectedErrorCount)))
+                .andExpect(MockMvcResultMatchers.header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        final var actualEntity = driverRepository.findById(expectedId.getValue()).get();
+
+        Assertions.assertEquals(expectedId.getValue(), actualEntity.getId());
+        Assertions.assertEquals(actualEntity.getName(), expectedName);
+        Assertions.assertNotNull(actualEntity.getUpdatedAt());
+        Assertions.assertNotNull(actualEntity.getCreatedAt());
+        Assertions.assertEquals(actualEntity.getCreatedAt(), actualEntity.getUpdatedAt());
+
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeATreatedErrorOnNameIsNull() throws Exception {
+        final var aDriver = Driver.newDriver("jo");
+
+        final var expectedName = aDriver.getName();
+        final var expectedId = aDriver.getId();
+
+        final var expectedErrorMessage = "'name' should not be null";
+        final var expectedErrorCount = 1;
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.save(DriverJpaEntity.from(aDriver));
+        Assertions.assertEquals(1, driverRepository.count());
+
+
+        final var aRequestInput = new UpdateDriverRequest(expectedId.getValue(), null);
+
+        final var request =
+                MockMvcRequestBuilders.put(BASE_PATH + "/{id}", expectedId.getValue())
+                        .content(Json.writeValueAsString(aRequestInput))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.equalTo(expectedErrorMessage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors", Matchers.hasSize(expectedErrorCount)))
+                .andExpect(MockMvcResultMatchers.header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        final var actualEntity = driverRepository.findById(expectedId.getValue()).get();
+
+        Assertions.assertEquals(expectedId.getValue(), actualEntity.getId());
+        Assertions.assertEquals(actualEntity.getName(), expectedName);
+        Assertions.assertNotNull(actualEntity.getUpdatedAt());
+        Assertions.assertNotNull(actualEntity.getCreatedAt());
+        Assertions.assertEquals(actualEntity.getCreatedAt(), actualEntity.getUpdatedAt());
+
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeATreatedErrorOnNameIsThan256Characters() throws Exception {
+        final String aName = """
+                O empenho em analisar a constante divulgação das informações faz parte 
+                de um processo de gerenciamento das posturas dos órgãos dirigentes com
+                 relação às suas atribuições. Do mesmo modo, o novo modelo estrutural aqui
+                  preconizado nos obriga à análise dos modos de operação convencionais. 
+                  Pensando mais a longo prazo, o desenvolvimento contínuo de distintas 
+                  formas de atuação pode nos levar a considerar a reestruturação das 
+                  direções preferenciais no sentido do progresso. A nível organizacional,
+                   o surgimento do comércio virtual facilita a criação do remanejamento
+                    dos quadros funcionais. Gostaria de enfatizar que o comprometimento 
+                    entre as equipes obstaculiza a apreciação da importância das diretrizes 
+                    de desenvolvimento para o futuro.
+                   """;
+
+        final var aDriver = Driver.newDriver("jo");
+
+        final var expectedName = aDriver.getName();
+        final var expectedId = aDriver.getId();
+
+        final var expectedErrorMessage = "'name' should be between 1 and 255 characters";
+        final var expectedErrorCount = 1;
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.save(DriverJpaEntity.from(aDriver));
+        Assertions.assertEquals(1, driverRepository.count());
+
+
+        final var aRequestInput = new UpdateDriverRequest(expectedId.getValue(), aName);
+
+        final var request =
+                MockMvcRequestBuilders.put(BASE_PATH + "/{id}", expectedId.getValue())
+                        .content(Json.writeValueAsString(aRequestInput))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.equalTo(expectedErrorMessage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors", Matchers.hasSize(expectedErrorCount)))
+                .andExpect(MockMvcResultMatchers.header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andReturn();
+
+        final var actualEntity = driverRepository.findById(expectedId.getValue()).get();
+
+        Assertions.assertEquals(expectedId.getValue(), actualEntity.getId());
+        Assertions.assertEquals(actualEntity.getName(), expectedName);
+        Assertions.assertNotNull(actualEntity.getUpdatedAt());
+        Assertions.assertNotNull(actualEntity.getCreatedAt());
+        Assertions.assertEquals(actualEntity.getCreatedAt(), actualEntity.getUpdatedAt());
+
     }
 }
