@@ -3,8 +3,10 @@ package com.delivery.system.infrastructure.api.driver;
 import com.delivery.system.E2ETest;
 import com.delivery.system.configs.json.Json;
 import com.delivery.system.domain.driver.Driver;
+import com.delivery.system.domain.driver.DriverID;
 import com.delivery.system.infrastructure.driver.models.create.CreateDriverRequest;
 import com.delivery.system.infrastructure.driver.models.create.CreateDriverResponse;
+import com.delivery.system.infrastructure.driver.models.findById.FindDriverByIdResponse;
 import com.delivery.system.infrastructure.driver.models.update.UpdateDriverRequest;
 import com.delivery.system.infrastructure.driver.persistence.DriverJpaEntity;
 import com.delivery.system.infrastructure.driver.persistence.DriverRepository;
@@ -353,4 +355,63 @@ public class DriverControllerTestE2E {
         Assertions.assertEquals(actualEntity.getCreatedAt(), actualEntity.getUpdatedAt());
 
     }
+
+    @Test
+    public void asAUser_IShouldBeAbleToFindAExistentDriverSuccessfully() throws Exception {
+        final var aDriver = Driver.newDriver("John");
+        final var expectedName = "John";
+        final var expectedId = aDriver.getId();
+        final var expectedCreatedAt = aDriver.getCreatedAt();
+        final var expectedUpdatedAt = aDriver.getUpdatedAt();
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.save(DriverJpaEntity.from(aDriver));
+        Assertions.assertEquals(1, driverRepository.count());
+
+
+        final var request =
+                MockMvcRequestBuilders.get(BASE_PATH + "/{id}", expectedId.getValue())
+                        .accept(MediaType.APPLICATION_JSON);
+
+        final var result = this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+        final var actualResponseBody = Json.readValue(result.getResponse().getContentAsString(), FindDriverByIdResponse.class);
+
+        Assertions.assertEquals(expectedId.getValue(), actualResponseBody.id());
+        Assertions.assertEquals(actualResponseBody.name(), expectedName);
+        Assertions.assertEquals(actualResponseBody.updatedAt(), expectedUpdatedAt);
+        Assertions.assertEquals(actualResponseBody.createdAt(), expectedCreatedAt);
+
+        final var actualEntity = driverRepository.findById(expectedId.getValue()).get();
+        Assertions.assertEquals(expectedId.getValue(), actualEntity.getId());
+        Assertions.assertEquals(actualEntity.getName(), expectedName);
+        Assertions.assertEquals(actualEntity.getUpdatedAt(), expectedUpdatedAt);
+        Assertions.assertEquals(actualEntity.getCreatedAt(), expectedCreatedAt);
+
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeATreatedNotFoundErrorWhenIdNotExists() throws Exception {
+        final var expectedId = DriverID.from("123");
+
+        final var expectedErrorMessage = "Driver with identifier 123 was not found";
+        final var expectedErrorCount = 0;
+
+        Assertions.assertEquals(0, driverRepository.count());
+
+        final var request =
+                MockMvcRequestBuilders.get(BASE_PATH + "/{id}", expectedId.getValue())
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.equalTo(expectedErrorMessage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors", Matchers.hasSize(expectedErrorCount)))
+                .andExpect(MockMvcResultMatchers.header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE));
+
+        Assertions.assertEquals(0, driverRepository.count());
+    }
+
 }
