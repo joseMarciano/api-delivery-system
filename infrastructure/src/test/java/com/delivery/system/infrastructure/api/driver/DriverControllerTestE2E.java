@@ -24,6 +24,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.util.List;
+import java.util.function.Function;
+
 @E2ETest
 @Testcontainers
 public class DriverControllerTestE2E {
@@ -458,5 +461,63 @@ public class DriverControllerTestE2E {
         Assertions.assertEquals(0, driverRepository.count());
 
     }
+
+
+    @Test
+    public void asAUser_IShouldBeAbleToFindAllExistentDriversSuccessfully() throws Exception {
+        final var drivers = List.of(
+                Driver.newDriver("John"),
+                Driver.newDriver("Mel"),
+                Driver.newDriver("Mohamed")
+        );
+
+        final var expectedDriversCount = 3;
+
+        Assertions.assertEquals(0, driverRepository.count());
+        driverRepository.saveAllAndFlush(mapTo(drivers, DriverJpaEntity::from));
+        Assertions.assertEquals(expectedDriversCount, driverRepository.count());
+
+
+        final var request =
+                MockMvcRequestBuilders.get(BASE_PATH)
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.header().string("Content-type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(expectedDriversCount)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.equalTo(drivers.get(0).getId().getValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", Matchers.equalTo(drivers.get(0).getName())))
+
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id", Matchers.equalTo(drivers.get(1).getId().getValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name", Matchers.equalTo(drivers.get(1).getName())))
+
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].id", Matchers.equalTo(drivers.get(2).getId().getValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name", Matchers.equalTo(drivers.get(2).getName())))
+                .andReturn();
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeAEmptyListWhenDriversNotExists() throws Exception {
+        final var expectedDriversCount = 0;
+
+        Assertions.assertEquals(0, driverRepository.count());
+
+
+        final var request =
+                MockMvcRequestBuilders.get(BASE_PATH)
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.header().string("Content-type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(expectedDriversCount)))
+                .andReturn();
+    }
+
+    private <I, O> List<O> mapTo(List<I> list, Function<I, O> mapper) {
+        return list.stream().map(mapper).toList();
+    }
+
 
 }
