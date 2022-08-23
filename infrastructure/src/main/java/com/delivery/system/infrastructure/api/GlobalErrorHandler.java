@@ -19,6 +19,13 @@ public class GlobalErrorHandler {
         return ResponseEntity.unprocessableEntity().body(apiError);
     }
 
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<?> generalExceptionHandler(final Exception exception) {
+        final var apiError = ApiError
+                .with("Internal server error", List.of(new Error(exception.getMessage())));
+        return ResponseEntity.unprocessableEntity().body(apiError);
+    }
+
     record ApiError(String message, List<Error> errors) {
         public static ApiError with(final String message, final List<Error> errors) {
             return new ApiError(message, errors);
