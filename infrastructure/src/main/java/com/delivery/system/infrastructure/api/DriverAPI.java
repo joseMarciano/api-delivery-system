@@ -2,9 +2,11 @@ package com.delivery.system.infrastructure.api;
 
 import com.delivery.system.infrastructure.driver.models.create.CreateDriverRequest;
 import com.delivery.system.infrastructure.driver.models.create.CreateDriverResponse;
+import com.delivery.system.infrastructure.driver.models.findById.FindDriverByIdResponse;
 import com.delivery.system.infrastructure.driver.models.update.UpdateDriverRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/drivers")
@@ -25,6 +27,13 @@ public interface DriverAPI {
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void update(@RequestBody UpdateDriverRequest aDriverRequest);
+
+    @GetMapping(
+            value = "{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    ResponseEntity<FindDriverByIdResponse> findById(@PathVariable("id") String anId);
 
 
 }
