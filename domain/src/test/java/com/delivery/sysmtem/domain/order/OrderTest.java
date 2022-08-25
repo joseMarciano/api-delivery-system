@@ -64,4 +64,49 @@ public class OrderTest {
 
         assertEquals(expectedErrorMessage, actualException.getMessage());
     }
+
+    @Test
+    public void givenAValidParam_whenCallsUpdate_thenReturnOrderUpdated() {
+        final var expectedDescription = "Package";
+        final var expectedDriverId = DriverID.unique();
+
+        final var aOrder = Order.newOrder("pacage", expectedDriverId);
+
+        final var actualOrder = aOrder.update(expectedDescription, aOrder.getDriverID());
+
+        assertEquals(expectedDescription, actualOrder.getDescription());
+        assertEquals(StatusOrder.CREATED, actualOrder.getStatus());
+        assertNotNull(actualOrder.getCreatedAt());
+        assertNotNull(actualOrder.getUpdatedAt());
+        assertTrue(actualOrder.getCreatedAt().isBefore(actualOrder.getUpdatedAt()));
+        assertNull(actualOrder.getTimeDelivered());
+    }
+
+    @Test
+    public void givenANullName_whenCallUpdate_thenThrowsDomainException() {
+        final String expectedName = null;
+        final var expectedDriverId = DriverID.unique();
+
+        final var expectedErrorMessage = "'description' should not be null";
+        final var aOrder = Order.newOrder("pacage", expectedDriverId);
+
+        final var actualException =
+                assertThrows(DomainException.class, () -> aOrder.update(expectedName, expectedDriverId));
+
+        assertEquals(expectedErrorMessage, actualException.getMessage());
+    }
+
+    @Test
+    public void givenANullDriverID_whenCallUpdate_thenThrowsDomainException() {
+        final var expectedName = "Package";
+        final DriverID expectedDriverId = null;
+
+        final var expectedErrorMessage = "'driverId' should not be null";
+        final var aOrder = Order.newOrder(expectedName, DriverID.unique());
+
+        final var actualException =
+                assertThrows(DomainException.class, () -> aOrder.update(expectedName, expectedDriverId));
+
+        assertEquals(expectedErrorMessage, actualException.getMessage());
+    }
 }
