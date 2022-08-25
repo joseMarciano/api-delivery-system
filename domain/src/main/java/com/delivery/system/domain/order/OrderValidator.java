@@ -20,6 +20,7 @@ public class OrderValidator extends Validator {
     public void validate() {
         validateDescription();
         validateDriver();
+        validateStatusOrder();
     }
 
     private void validateDescription() {
@@ -45,5 +46,13 @@ public class OrderValidator extends Validator {
             this.validationHandler().append(new Error("'driverId' should not be null"));
         }
 
+    }
+
+    private void validateStatusOrder() {
+        final var actualStatusOrder = this.order.getStatus();
+
+        if (isNull(actualStatusOrder)) {
+            this.validationHandler().append(new Error("'statusOrder' should not be null"));
+        }
     }
 }

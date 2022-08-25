@@ -59,6 +59,15 @@ public class Order extends AggregateRoot<OrderID> implements Cloneable {
         return this;
     }
 
+    public Order changeStatus(final StatusOrder newStatus) {
+        this.status = newStatus;
+        this.timeDelivered = this.status == StatusOrder.DELIVERED ? InstantUtils.now() : null;
+        this.updatedAt = InstantUtils.now();
+
+        selfValidate();
+        return this;
+    }
+
     @Override
     public Order clone() {
         try {
