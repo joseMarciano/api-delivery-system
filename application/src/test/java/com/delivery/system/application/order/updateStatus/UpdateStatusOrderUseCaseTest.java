@@ -17,6 +17,8 @@ import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
@@ -104,5 +106,49 @@ public class UpdateStatusOrderUseCaseTest {
         verify(orderGateway, times(0)).update(any());
 
         Assertions.assertEquals(actualException.getMessage(), expectedErrorMessage);
+    }
+
+    @Test
+    public void givenAValidCommand_whenCallsFindByIdOnUpdateStatusOrderAndGatewayThrowsRandonException_shouldReturnARandomException() {
+        final var expectedDescription = "Package";
+        final var expectedDriverId = DriverID.unique();
+        final var expectedStatus = StatusOrder.IN_PROGRESS;
+        final var aOrder = Order.newOrder(expectedDescription, expectedDriverId);
+        final var expectedId = aOrder.getId();
+
+        final var expectedErrorMessage = "Gateway error";
+
+        final var aCommand = UpdateStatusOrderCommand.with(expectedId.getValue(), expectedStatus);
+
+        when(orderGateway.findById(any())).thenThrow(new IllegalStateException(expectedErrorMessage));
+
+        final var actualExpcetion = assertThrows(IllegalStateException.class, () -> useCase.execute(aCommand));
+
+        assertEquals(actualExpcetion.getMessage(), expectedErrorMessage);
+        verify(orderGateway, times(1)).findById(any());
+        verify(orderGateway, times(0)).update(any());
+
+    }
+
+    @Test
+    public void givenAValidCommand_whenCallsUpdateStatusOrderAndGatewayThrowsRandonException_shouldReturnARandomException() {
+        final var expectedDescription = "Package";
+        final var expectedDriverId = DriverID.unique();
+        final var expectedStatus = StatusOrder.IN_PROGRESS;
+        final var aOrder = Order.newOrder(expectedDescription, expectedDriverId);
+        final var expectedId = aOrder.getId();
+
+        final var expectedErrorMessage = "Gateway error";
+
+        final var aCommand = UpdateStatusOrderCommand.with(expectedId.getValue(), expectedStatus);
+
+        when(orderGateway.findById(any())).thenReturn(Optional.of(aOrder));
+        when(orderGateway.update(any())).thenThrow(new IllegalStateException(expectedErrorMessage));
+
+        final var actualExpcetion = assertThrows(IllegalStateException.class, () -> useCase.execute(aCommand));
+
+        assertEquals(actualExpcetion.getMessage(), expectedErrorMessage);
+        verify(orderGateway, times(1)).findById(any());
+        verify(orderGateway, times(1)).update(any());
     }
 }
