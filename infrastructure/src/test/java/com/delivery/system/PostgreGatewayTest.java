@@ -17,7 +17,7 @@ import static org.springframework.context.annotation.ComponentScan.Filter;
 @ActiveProfiles("integration-test")
 @ComponentScan(
         basePackages = "com.delivery.system",
-        includeFilters = @Filter(type = FilterType.REGEX, pattern = "MySQLGateway$")
+        includeFilters = @Filter(type = FilterType.REGEX, pattern = "PostgreGateway$")
 )
 @ExtendWith(PostgreGatewayCleanUpExtension.class)
 public @interface PostgreGatewayTest {

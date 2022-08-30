@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DriverPostgreGatewayTest {
 
     @Autowired
-    private DriverMySQLGateway driverMySQLGateway;
+    private DriverPostreGateway driverPostreGateway;
 
     @Autowired
     private DriverRepository driverRepository;
@@ -28,7 +28,7 @@ public class DriverPostgreGatewayTest {
         final var aDriver = Driver.newDriver("John");
 
         Assertions.assertEquals(0, driverRepository.count());
-        final var actualDriver = driverMySQLGateway.create(aDriver);
+        final var actualDriver = driverPostreGateway.create(aDriver);
         Assertions.assertEquals(1, driverRepository.count());
 
         Assertions.assertEquals(aDriver.getId(), actualDriver.getId());
@@ -62,7 +62,7 @@ public class DriverPostgreGatewayTest {
 
         final var aDriverUpdated = aDriver.clone().update(expectedName);
 
-        final var actualDriver = driverMySQLGateway
+        final var actualDriver = driverPostreGateway
                 .update(aDriverUpdated);
 
         assertEquals(actualDriver.getId(), expectedId);
@@ -81,7 +81,7 @@ public class DriverPostgreGatewayTest {
         driverRepository.saveAndFlush(DriverJpaEntity.from(aDriver));
         Assertions.assertEquals(1, driverRepository.count());
 
-        final var actualDriver = driverMySQLGateway.findById(expectedId).get();
+        final var actualDriver = driverPostreGateway.findById(expectedId).get();
 
         assertEquals(actualDriver.getName(), aDriver.getName());
         assertEquals(actualDriver.getId(), expectedId);
@@ -93,7 +93,7 @@ public class DriverPostgreGatewayTest {
     public void givenANoExistingDriver_whenCallsFindById_shouldReturnEmpty() {
         final var expectedId = DriverID.unique();
         Assertions.assertEquals(0, driverRepository.count());
-        final var actualOuput = driverMySQLGateway.findById(expectedId);
+        final var actualOuput = driverPostreGateway.findById(expectedId);
         Assertions.assertTrue(actualOuput.isEmpty());
     }
 
@@ -106,7 +106,7 @@ public class DriverPostgreGatewayTest {
         driverRepository.saveAndFlush(DriverJpaEntity.from(aDriver));
         Assertions.assertEquals(1, driverRepository.count());
 
-        driverMySQLGateway.deleteById(expectedId);
+        driverPostreGateway.deleteById(expectedId);
 
         Assertions.assertEquals(0, driverRepository.count());
     }
@@ -115,7 +115,7 @@ public class DriverPostgreGatewayTest {
     public void givenANoExistingDriver_whenCallsDeleteById_shouldBeOk() {
         final var expectedId = DriverID.unique();
         Assertions.assertEquals(0, driverRepository.count());
-        driverMySQLGateway.deleteById(expectedId);
+        driverPostreGateway.deleteById(expectedId);
         Assertions.assertEquals(0, driverRepository.count());
     }
 
@@ -131,7 +131,7 @@ public class DriverPostgreGatewayTest {
         driverRepository.saveAllAndFlush(mapTo(expectedDrivers, DriverJpaEntity::from));
         Assertions.assertEquals(2, driverRepository.count());
 
-        final var actualDrivers = driverMySQLGateway.findAll();
+        final var actualDrivers = driverPostreGateway.findAll();
 
         assertTrue(
                 actualDrivers.size() == expectedDrivers.size()
@@ -143,7 +143,7 @@ public class DriverPostgreGatewayTest {
     public void givenNoExistingDrivers_whenCallsListAllDriver_shouldReturnAEmptyList() {
         final var expectedSizeList = 0;
         Assertions.assertEquals(0, driverRepository.count());
-        final var actualDrivers = driverMySQLGateway.findAll();
+        final var actualDrivers = driverPostreGateway.findAll();
         assertEquals(expectedSizeList, actualDrivers.size());
     }
 

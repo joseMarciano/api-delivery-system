@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class DriverMySQLGateway implements DriverGateway {
+public class DriverPostreGateway implements DriverGateway {
 
     private final DriverRepository driverRepository;
 
-    public DriverMySQLGateway(DriverRepository driverRepository) {
+    public DriverPostreGateway(DriverRepository driverRepository) {
         this.driverRepository = driverRepository;
     }
 
