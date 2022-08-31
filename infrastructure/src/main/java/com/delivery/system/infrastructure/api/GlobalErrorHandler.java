@@ -32,7 +32,7 @@ public class GlobalErrorHandler {
     public ResponseEntity<?> generalExceptionHandler(final Exception exception) {
         final var apiError = ApiError
                 .with("Internal server error", List.of(new Error(exception.getMessage())));
-        return ResponseEntity.unprocessableEntity().body(apiError);
+        return ResponseEntity.internalServerError().body(apiError);
     }
 
     record ApiError(String message, List<Error> errors) {
