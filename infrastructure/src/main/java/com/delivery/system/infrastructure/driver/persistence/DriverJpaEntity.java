@@ -46,6 +46,10 @@ public class DriverJpaEntity {
         );
     }
 
+    public static DriverJpaEntity with(final DriverID aDriverId) {
+        return new DriverJpaEntity(aDriverId.getValue(), null, null, null);
+    }
+
     public Driver toAggregate() {
         return Driver.with(
                 DriverID.from(this.getId()),
