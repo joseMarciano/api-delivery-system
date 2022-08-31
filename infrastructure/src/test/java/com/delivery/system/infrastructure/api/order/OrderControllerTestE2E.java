@@ -3,14 +3,18 @@ package com.delivery.system.infrastructure.api.order;
 import com.delivery.system.E2ETest;
 import com.delivery.system.configs.json.Json;
 import com.delivery.system.domain.driver.Driver;
+import com.delivery.system.domain.order.Order;
 import com.delivery.system.infrastructure.driver.persistence.DriverJpaEntity;
 import com.delivery.system.infrastructure.driver.persistence.DriverRepository;
 import com.delivery.system.infrastructure.order.models.create.CreateOrderRequest;
+import com.delivery.system.infrastructure.order.persistence.OrderJpaEntity;
 import com.delivery.system.infrastructure.order.persistence.OrderRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -20,6 +24,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import java.util.List;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -38,6 +45,8 @@ public class OrderControllerTestE2E {
     @Autowired
     private OrderRepository orderRepository;
 
+    @SpyBean
+    private OrderController orderController;
 
     @Container
     public static PostgreSQLContainer<?> postgresDB =
@@ -122,6 +131,96 @@ public class OrderControllerTestE2E {
                 .andReturn();
 
         Assertions.assertEquals(0, orderRepository.count());
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToFindAllExistentOrdersSuccessfully() throws Exception {
+        assertEquals(0, driverRepository.count());
+        assertEquals(0, orderRepository.count());
+
+        final var aDriver = Driver.newDriver("John");
+        final var expectedDriverId = aDriver.getId();
+
+        driverRepository.saveAndFlush(DriverJpaEntity.from(aDriver));
+        assertEquals(1, driverRepository.count());
+
+        final var orders = List.of(
+                Order.newOrder("Pack 1", expectedDriverId),
+                Order.newOrder("Pack 2", expectedDriverId),
+                Order.newOrder("Pack 3", expectedDriverId)
+        );
+
+        final var expectedOrdersCount = 3;
+
+        Assertions.assertEquals(0, orderRepository.count());
+        orderRepository.saveAllAndFlush(mapTo(orders, OrderJpaEntity::from));
+        Assertions.assertEquals(expectedOrdersCount, orderRepository.count());
+
+
+        final var request =
+                MockMvcRequestBuilders.get(BASE_PATH)
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.header().string("Content-type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(expectedOrdersCount)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.equalTo(orders.get(0).getId().getValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].description", Matchers.equalTo(orders.get(0).getDescription())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].deliveredAt", Matchers.nullValue()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].statusOrder", Matchers.equalTo("CREATED")))
+
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id", Matchers.equalTo(orders.get(1).getId().getValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].description", Matchers.equalTo(orders.get(1).getDescription())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].deliveredAt", Matchers.nullValue()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].statusOrder", Matchers.equalTo("CREATED")))
+
+
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].id", Matchers.equalTo(orders.get(2).getId().getValue())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].description", Matchers.equalTo(orders.get(2).getDescription())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].deliveredAt", Matchers.nullValue()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].statusOrder", Matchers.equalTo("CREATED")))
+                .andReturn();
+    }
+
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeAEmptyListWhenOrdersNotExists() throws Exception {
+        final var expectedOrdersCount = 0;
+        Assertions.assertEquals(0, orderRepository.count());
+
+        final var request =
+                MockMvcRequestBuilders.get(BASE_PATH)
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.header().string("Content-type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(expectedOrdersCount)))
+                .andReturn();
+    }
+
+    @Test
+    public void asAUser_IShouldBeAbleToSeeATreatedInternalServerErrorOnRandomException() throws Exception {
+        final var expectedMessage = "Internal server error";
+        final var expectedErrorMessage = "Controller error";
+
+        Mockito.when(orderController.listAll()).thenThrow(new RuntimeException(expectedErrorMessage));
+
+        final var request =
+                MockMvcRequestBuilders.get(BASE_PATH)
+                        .accept(MediaType.APPLICATION_JSON);
+
+        this.mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+                .andExpect(MockMvcResultMatchers.header().string("Content-type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message", Matchers.equalTo(expectedMessage)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errors[0].message", Matchers.equalTo(expectedErrorMessage)))
+                .andReturn();
+    }
+
+    private <I, O> List<O> mapTo(List<I> list, Function<I, O> mapper) {
+        return list.stream().map(mapper).toList();
     }
 
 
