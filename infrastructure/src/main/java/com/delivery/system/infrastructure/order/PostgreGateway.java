@@ -41,6 +41,6 @@ public class PostgreGateway implements OrderGateway {
 
     @Override
     public List<Order> findAll() {
-        return null;
+        return this.orderRepository.findAll().stream().map(OrderJpaEntity::toAggregate).toList();
     }
 }
