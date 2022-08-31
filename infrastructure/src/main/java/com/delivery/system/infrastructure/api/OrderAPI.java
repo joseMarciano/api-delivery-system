@@ -1,6 +1,7 @@
 package com.delivery.system.infrastructure.api;
 
 import com.delivery.system.infrastructure.order.models.create.CreateOrderRequest;
+import com.delivery.system.infrastructure.order.models.listAll.ListAllOrdersResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public interface OrderAPI {
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    List<?> create();
+    List<ListAllOrdersResponse> listAll();
 
 
 }
