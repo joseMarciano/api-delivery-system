@@ -23,13 +23,13 @@ public class Order extends AggregateRoot<OrderID> implements Cloneable {
     public static Order newOrder(final String aDescription, final DriverID anDriverId) {
         final var anId = OrderID.unique();
         final var now = InstantUtils.now();
-        return new Order(anId, aDescription, anDriverId, now, now, StatusOrder.CREATED);
+        return new Order(anId, aDescription, anDriverId, null, now, now, StatusOrder.CREATED);
     }
 
     private Order(final OrderID anId,
-
                   final String aDescription,
                   final DriverID aDriverId,
+                  final Instant deliveredAt,
                   final Instant createdAt,
                   final Instant updatedAt,
                   final StatusOrder aStatus) {
@@ -37,10 +37,29 @@ public class Order extends AggregateRoot<OrderID> implements Cloneable {
         this.description = aDescription;
         this.status = aStatus;
         this.driverID = aDriverId;
+        this.timeDelivered = deliveredAt;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
 
         selfValidate();
+    }
+
+    public static Order with(final DriverID aDriverId,
+                             final OrderID anId,
+                             final String aDescription,
+                             final StatusOrder aStatus,
+                             final Instant deliveredAt,
+                             final Instant createdAt,
+                             final Instant updatedAt) {
+        return new Order(
+                anId,
+                aDescription,
+                aDriverId,
+                deliveredAt,
+                createdAt,
+                updatedAt,
+                aStatus
+        );
     }
 
     @Override
