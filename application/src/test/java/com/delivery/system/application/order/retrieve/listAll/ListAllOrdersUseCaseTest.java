@@ -3,7 +3,6 @@ package com.delivery.system.application.order.retrieve.listAll;
 import com.delivery.system.domain.driver.DriverID;
 import com.delivery.system.domain.order.Order;
 import com.delivery.system.domain.order.OrderGateway;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +13,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -39,10 +38,18 @@ public class ListAllOrdersUseCaseTest {
 
         final var actualOuput = useCase.execute();
 
-        assertTrue(
-                actualOuput.size() == expectedOrders.size()
-                        && mapTo(expectedOrders, Order::getId).containsAll(mapTo(expectedOrders, Order::getId))
-        );
+        assertEquals(actualOuput.size(), expectedOrders.size());
+
+
+        for (int index = 0; index < actualOuput.size(); index++) {
+            final var actualOrder = actualOuput.get(index);
+            final var expectedOrder = expectedOrders.get(index);
+
+            assertEquals(actualOrder.id(), expectedOrder.getId().getValue());
+            assertEquals(actualOrder.description(), expectedOrder.getDescription());
+            assertEquals(actualOrder.statusOrder(), expectedOrder.getStatus());
+            assertEquals(actualOrder.deliveredAt(), expectedOrder.getTimeDelivered());
+        }
 
         verify(orderGateway).findAll();
 
@@ -67,7 +74,7 @@ public class ListAllOrdersUseCaseTest {
 
         when(orderGateway.findAll()).thenThrow(new IllegalStateException(expectedErrorMessage));
 
-        final var actualException = Assertions.assertThrows(IllegalStateException.class, () -> useCase.execute());
+        final var actualException = assertThrows(IllegalStateException.class, () -> useCase.execute());
 
         assertEquals(expectedErrorMessage, actualException.getMessage());
         verify(orderGateway).findAll();
