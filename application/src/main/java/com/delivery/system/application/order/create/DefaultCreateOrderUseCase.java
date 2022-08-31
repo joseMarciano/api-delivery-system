@@ -15,9 +15,9 @@ public class DefaultCreateOrderUseCase extends CreateOrderUseCase {
     }
 
     @Override
-    public void execute(CreateOrderCommand anIn) {
+    public CreateOrderOuput execute(CreateOrderCommand anIn) {
         final var aOrder = Order.newOrder(anIn.description(), DriverID.from(anIn.driverId()));
-        orderGateway.create(aOrder);
+        return CreateOrderOuput.from(orderGateway.create(aOrder));
     }
 
 }

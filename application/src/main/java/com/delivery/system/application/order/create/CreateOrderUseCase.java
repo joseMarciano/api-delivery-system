@@ -1,6 +1,6 @@
 package com.delivery.system.application.order.create;
 
-import com.delivery.system.application.UnaryUseCase;
+import com.delivery.system.application.UseCase;
 
-public abstract class CreateOrderUseCase extends UnaryUseCase<CreateOrderCommand> {
+public abstract class CreateOrderUseCase extends UseCase<CreateOrderCommand, CreateOrderOuput> {
 }
