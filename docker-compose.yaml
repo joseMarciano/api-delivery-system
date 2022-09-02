@@ -10,3 +10,14 @@ services:
       POSTGRES_PASSWORD: a1b2c3f4e5
       POSTGRES_USER: order_owner
       POSTGRES_DB: order_manager
+  rabbit-mq:
+    container_name: 'rabbitMQ-order-manager'
+    image: rabbitmq:3.10.7-management
+    restart: 'no'
+    network_mode: 'host'
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: order_owner
+      RABBITMQ_DEFAULT_PASS: a1b2c3f4e5
