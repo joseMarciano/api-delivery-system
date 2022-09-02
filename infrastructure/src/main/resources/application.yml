@@ -11,3 +11,9 @@ spring:
     url: jdbc:postgresql://${postgre.url}:${postgre.port}/${postgre.database}
     username: ${postgre.username}
     password: ${postgre.password}
+  rabbitmq:
+    host: ${rabbitmq.url}
+    port: ${rabbitmq.port}
+    username: ${rabbitmq.username}
+    password: ${rabbitmq.password}
+
