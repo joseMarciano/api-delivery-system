@@ -11,8 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,9 +32,10 @@ public class CreateOrderUseCaseTest {
 
         when(orderGateway.create(any())).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
-        useCase.execute(aCommand);
+        CreateOrderOuput output = useCase.execute(aCommand);
 
         verify(orderGateway, times(1)).create(any());
+        assertNotNull(output.id());
     }
 
     @Test
