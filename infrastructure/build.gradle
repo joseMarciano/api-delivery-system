@@ -26,9 +26,10 @@ dependencies {
 
     testImplementation("org.testcontainers:junit-jupiter:1.17.3")
     testImplementation("org.testcontainers:postgresql:1.17.3")
+    testImplementation("org.testcontainers:rabbitmq:1.17.3")
 
     testImplementation("org.springframework.amqp:spring-rabbit-test:2.4.6")
-    testImplementation("org.testcontainers:rabbitmq:1.17.3")
+    testImplementation("org.awaitility:awaitility:4.2.0")
 
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
