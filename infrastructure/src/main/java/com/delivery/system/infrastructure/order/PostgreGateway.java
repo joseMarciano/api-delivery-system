@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Component //TODO: CREATE TESTS ABOUT IT
 public class PostgreGateway implements OrderGateway {
 
     private final OrderRepository orderRepository;
@@ -21,17 +21,17 @@ public class PostgreGateway implements OrderGateway {
 
     @Override
     public Order create(Order aOrder) {
-        return this.orderRepository.save(OrderJpaEntity.from(aOrder)).toAggregate();
+        return save(aOrder);
     }
 
     @Override
     public Order update(Order aOrder) {
-        return null;
+        return save(aOrder);
     }
 
     @Override
     public Optional<Order> findById(OrderID anId) {
-        throw new RuntimeException("Need to be implemented");
+        return this.orderRepository.findById(anId.getValue()).map(OrderJpaEntity::toAggregate);
     }
 
     @Override
@@ -42,5 +42,9 @@ public class PostgreGateway implements OrderGateway {
     @Override
     public List<Order> findAll() {
         return this.orderRepository.findAll().stream().map(OrderJpaEntity::toAggregate).toList();
+    }
+
+    private Order save(Order aOrder) {
+        return this.orderRepository.save(OrderJpaEntity.from(aOrder)).toAggregate();
     }
 }
