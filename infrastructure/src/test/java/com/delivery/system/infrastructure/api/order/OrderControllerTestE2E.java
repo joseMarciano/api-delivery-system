@@ -4,6 +4,8 @@ import com.delivery.system.E2ETest;
 import com.delivery.system.configs.json.Json;
 import com.delivery.system.domain.driver.Driver;
 import com.delivery.system.domain.order.Order;
+import com.delivery.system.domain.order.OrderID;
+import com.delivery.system.domain.order.OrderNotifier;
 import com.delivery.system.infrastructure.driver.persistence.DriverJpaEntity;
 import com.delivery.system.infrastructure.driver.persistence.DriverRepository;
 import com.delivery.system.infrastructure.order.models.create.CreateOrderRequest;
@@ -13,6 +15,8 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
@@ -30,6 +34,10 @@ import java.util.List;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @E2ETest
 @Testcontainers
@@ -48,6 +56,15 @@ public class OrderControllerTestE2E {
 
     @SpyBean
     private OrderController orderController;
+
+    @SpyBean
+    private OrderNotifier orderNotifier;
+
+    @SpyBean
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private RabbitAdmin rabbitAdmin;
 
     @Container
     public static PostgreSQLContainer<?> postgresDB =
@@ -77,6 +94,7 @@ public class OrderControllerTestE2E {
 
     @Test
     public void asAUser_IShouldBeAbleToCreateAOrderWithValidValues() throws Exception {
+        assertEquals(0, rabbitAdmin.getQueueInfo("order.created").getMessageCount());
         assertEquals(0, driverRepository.count());
         assertEquals(0, orderRepository.count());
 
@@ -109,10 +127,15 @@ public class OrderControllerTestE2E {
         Assertions.assertNull(actualEntity.getDeliveredAt());
         assertEquals(actualEntity.getCreatedAt(), actualEntity.getUpdatedAt());
         assertEquals(actualEntity.getDriver().getId(), expectedDriverId.getValue());
+
+        verify(orderNotifier).notifyCreated(OrderID.from(actualEntity.getId()));
+        verify(rabbitTemplate).convertAndSend("order.created", Json.writeValueAsString(OrderID.from(actualEntity.getId())));
+        assertEquals(1, rabbitAdmin.getQueueInfo("order.created").getMessageCount());
     }
 
     @Test
     public void asAUser_IShouldBeAbleToSeeTreatedErrorOnCreateOrderWithEmptyName() throws Exception {
+        assertEquals(0, rabbitAdmin.getQueueInfo("order.created").getMessageCount());
         assertEquals(0, driverRepository.count());
         assertEquals(0, orderRepository.count());
 
@@ -141,6 +164,11 @@ public class OrderControllerTestE2E {
                 .andReturn();
 
         Assertions.assertEquals(0, orderRepository.count());
+
+
+        verify(orderNotifier, times(0)).notifyCreated(any());
+        verify(rabbitTemplate, times(0)).convertAndSend(anyString(), any(String.class));
+        assertEquals(0, rabbitAdmin.getQueueInfo("order.created").getMessageCount());
     }
 
     @Test
