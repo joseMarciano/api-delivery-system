@@ -7,7 +7,9 @@ import com.delivery.system.infrastructure.driver.persistence.DriverJpaEntity;
 import com.delivery.system.infrastructure.driver.persistence.DriverRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 import java.util.function.Function;
@@ -16,6 +18,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @PostgreGatewayTest
 public class DriverPostgreGatewayTest {
+
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
 
     @Autowired
     private DriverPostreGateway driverPostreGateway;

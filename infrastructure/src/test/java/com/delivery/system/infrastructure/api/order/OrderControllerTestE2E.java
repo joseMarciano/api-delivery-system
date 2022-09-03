@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.containers.RabbitMQContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -55,6 +56,10 @@ public class OrderControllerTestE2E {
                     .withUsername("order_owner")
                     .withPassword("a1b2c3f4e5");
 
+    @Container
+    public static RabbitMQContainer rabbitContainer =
+            new RabbitMQContainer("rabbitmq:3.10.7");
+
 
     @DynamicPropertySource
     public static void properties(DynamicPropertyRegistry registry) {
@@ -62,6 +67,11 @@ public class OrderControllerTestE2E {
         registry.add("spring.datasource.username", postgresDB::getUsername);
         registry.add("spring.datasource.password", postgresDB::getPassword);
         registry.add("spring.datasource.port", () -> postgresDB.getMappedPort(5432));
+
+        registry.add("spring.rabbitmq.host", rabbitContainer::getHost);
+        registry.add("spring.rabbitmq.username", rabbitContainer::getAdminUsername);
+        registry.add("spring.rabbitmq.password", rabbitContainer::getAdminPassword);
+        registry.add("spring.rabbitmq.port", () -> rabbitContainer.getMappedPort(5672));
     }
 
 

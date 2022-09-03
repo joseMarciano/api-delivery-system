@@ -1,15 +1,19 @@
 package com.delivery.system.application.driver.create;
 
 
+import com.delivery.system.DisableRabbitMQ;
 import com.delivery.system.IntegrationTest;
 import com.delivery.system.domain.exceptions.DomainException;
 import com.delivery.system.infrastructure.driver.persistence.DriverRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @IntegrationTest
+@DisableRabbitMQ //TODO: FIND BETTER WAY TO DISABLE RABBITMQ WHERE DOEST NEED WITHOUT MOCKBEAN
 public class CreateDriverUseCaseIT {
 
     @Autowired
@@ -17,6 +21,9 @@ public class CreateDriverUseCaseIT {
 
     @Autowired
     private DriverRepository driverRepository;
+
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
 
     @Test
     public void givenAValidCommand_whenCallsCreateDriver_shouldReturnDriverCreated() {

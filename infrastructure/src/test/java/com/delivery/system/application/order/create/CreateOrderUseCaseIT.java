@@ -1,5 +1,6 @@
 package com.delivery.system.application.order.create;
 
+import com.delivery.system.DisableRabbitMQ;
 import com.delivery.system.IntegrationTest;
 import com.delivery.system.domain.driver.Driver;
 import com.delivery.system.domain.exceptions.DomainException;
@@ -8,12 +9,18 @@ import com.delivery.system.infrastructure.driver.persistence.DriverJpaEntity;
 import com.delivery.system.infrastructure.driver.persistence.DriverRepository;
 import com.delivery.system.infrastructure.order.persistence.OrderRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @IntegrationTest
+@DisableRabbitMQ
 public class CreateOrderUseCaseIT {
+
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
 
     @Autowired
     private DefaultCreateOrderUseCase useCase;
