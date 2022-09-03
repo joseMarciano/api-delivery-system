@@ -3,3 +3,8 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: none
+
+  rabbitmq:
+    listener:
+      simple:
+        auto-startup: false
