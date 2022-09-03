@@ -6,6 +6,7 @@ import com.delivery.system.application.order.retrieve.listAll.ListAllOrdersUseCa
 import com.delivery.system.infrastructure.api.OrderAPI;
 import com.delivery.system.infrastructure.order.models.create.CreateOrderRequest;
 import com.delivery.system.infrastructure.order.models.listAll.ListAllOrdersResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class OrderController implements OrderAPI {
     private final CreateOrderUseCase createOrderUseCase;
     private final ListAllOrdersUseCase listAllOrdersUseCase;
 
-    public OrderController(final CreateOrderUseCase createOrderUseCase,
+    public OrderController(@Qualifier("createOrderUseCaseNotifier") final CreateOrderUseCase createOrderUseCase,
                            final ListAllOrdersUseCase listAllOrdersUseCase) {
         this.createOrderUseCase = createOrderUseCase;
         this.listAllOrdersUseCase = listAllOrdersUseCase;
