@@ -5,6 +5,8 @@ import com.delivery.system.application.order.create.DefaultCreateOrderNotifierUs
 import com.delivery.system.application.order.create.DefaultCreateOrderUseCase;
 import com.delivery.system.application.order.retrieve.listAll.DefaultListAllOrdersUseCase;
 import com.delivery.system.application.order.retrieve.listAll.ListAllOrdersUseCase;
+import com.delivery.system.application.order.updateStatus.DefaultUpdateStatusOrderUseCase;
+import com.delivery.system.application.order.updateStatus.UpdateStatusOrderUseCase;
 import com.delivery.system.domain.order.OrderGateway;
 import com.delivery.system.domain.order.OrderNotifier;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,5 +39,10 @@ public class ConfigOrderUseCase {
     @Bean
     public ListAllOrdersUseCase listAllOrdersUseCase() {
         return new DefaultListAllOrdersUseCase(orderGateway);
+    }
+
+    @Bean
+    public UpdateStatusOrderUseCase updateStatusOrderUseCase() {
+        return new DefaultUpdateStatusOrderUseCase(orderGateway);
     }
 }
