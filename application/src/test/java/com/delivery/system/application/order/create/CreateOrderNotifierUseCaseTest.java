@@ -79,7 +79,9 @@ public class CreateOrderNotifierUseCaseTest {
 
         final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue());
         when(orderUseCase.execute(aCommand)).thenReturn(expectedOutput);
-        when(notifier.notifyCreated(any())).thenThrow(new IllegalStateException(expectedErrorMessage));
+
+        doThrow(new IllegalStateException(expectedErrorMessage))
+                .when(notifier).notifyCreated(any());
 
         final var actualExpcetion = assertThrows(IllegalStateException.class, () -> useCase.execute(aCommand));
 
