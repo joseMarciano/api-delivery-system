@@ -23,7 +23,11 @@ public class RabbitMqOrderListener {
         updateStatusOrderUseCase.execute(UpdateStatusOrderCommand.with(anInput.value(), StatusOrder.DELIVERED));
     }
 
-//    @RabbitListener(queues = "order.inProgress")
-//    public void orderinProgresListener(String in) {
-//    }
+    //TODO: CRIAR ESTE TESTE
+//    TODO: CRIAR TESTES DO GATEWAY DE ORDER
+    @RabbitListener(id = "order.inProgress", queues = "order.inProgress")
+    public void orderinProgresListener(String anIn) {
+        final var anInput = Json.readValue(anIn, OrderInProgressListenerInput.class);
+        updateStatusOrderUseCase.execute(UpdateStatusOrderCommand.with(anInput.value(), StatusOrder.IN_PROGRESS));
+    }
 }
