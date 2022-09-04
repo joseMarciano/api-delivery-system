@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
-@Component //TODO: CREATE TESTS ABOUT IT
-public class PostgreGateway implements OrderGateway {
+@Component
+public class OrderPostgreGateway implements OrderGateway {
 
     private final OrderRepository orderRepository;
 
-    public PostgreGateway(OrderRepository orderRepository) {
+    public OrderPostgreGateway(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 
