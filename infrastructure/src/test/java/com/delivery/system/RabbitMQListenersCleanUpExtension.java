@@ -13,7 +13,8 @@ import java.util.Set;
 public class RabbitMQListenersCleanUpExtension implements BeforeEachCallback {
 
     private static Set<String> orderQueues = Set.of(
-            "order.delivered"
+            "order.delivered",
+            "order.inProgress"
     );
 
 

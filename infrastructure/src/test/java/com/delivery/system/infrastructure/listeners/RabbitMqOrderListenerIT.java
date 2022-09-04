@@ -25,8 +25,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
-import static com.delivery.system.domain.order.StatusOrder.CREATED;
-import static com.delivery.system.domain.order.StatusOrder.DELIVERED;
+import static com.delivery.system.domain.order.StatusOrder.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @IntegrationTest
@@ -83,15 +82,43 @@ public class RabbitMqOrderListenerIT {
         rabbitTemplate.convertAndSend("order.delivered", Json.writeValueAsString(aOrder.getId()));
 
         Awaitility.await().atMost(30, TimeUnit.SECONDS)
-                .until(verifyIfQueueIsEmpty(), Boolean.TRUE::equals);
+                .until(verifyIfQueueIsEmpty("order.delivered"), Boolean.TRUE::equals);
 
         final var orderEntity = orderRepository.findAll().get(0);
         assertEquals(expectedStatusOrder, orderEntity.getStatus());
         assertNotNull(orderEntity.getDeliveredAt());
     }
 
-    public Callable<Boolean> verifyIfQueueIsEmpty() {
-        return () -> rabbitAdmin.getQueueInfo("order.delivered").getMessageCount() == 0;
+    @Test
+    public void givenAValidOrder_whenMessagingIsOrderInProgress_shouldUpdateOrder() {
+        assertEquals(0, rabbitAdmin.getQueueInfo("order.inProgress").getMessageCount());
+        assertEquals(0, driverRepository.count());
+        assertEquals(0, orderRepository.count());
+
+        listenerRegistry.getListenerContainer("order.inProgress").start();
+
+        final var expectedStatusOrder = IN_PROGRESS;
+
+        final var aOrder = createOrder();
+        assertEquals(1, driverRepository.count());
+        assertEquals(1, orderRepository.count());
+
+
+        assertEquals(CREATED, aOrder.getStatus());
+        assertNull(aOrder.getTimeDelivered());
+
+        rabbitTemplate.convertAndSend("order.inProgress", Json.writeValueAsString(aOrder.getId()));
+
+        Awaitility.await().atMost(30, TimeUnit.SECONDS)
+                .until(verifyIfQueueIsEmpty("order.inProgress"), Boolean.TRUE::equals);
+
+        final var orderEntity = orderRepository.findAll().get(0);
+        assertEquals(expectedStatusOrder, orderEntity.getStatus());
+        assertNull(orderEntity.getDeliveredAt());
+    }
+
+    public Callable<Boolean> verifyIfQueueIsEmpty(final String queueName) {
+        return () -> rabbitAdmin.getQueueInfo(queueName).getMessageCount() == 0;
     }
 
     public Order createOrder() {
