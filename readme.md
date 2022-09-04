@@ -18,6 +18,8 @@
 
 - [x] Initialize application
 - [x] Create drivers
+- [x] Create orders
+- [x] Create rabbitmq integration
 
 ## :scroll: How you can run this application?
 
