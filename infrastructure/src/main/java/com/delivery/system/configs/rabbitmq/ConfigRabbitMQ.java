@@ -9,6 +9,6 @@ public class ConfigRabbitMQ {
 
     @Bean
     public Queue orderCreatedQueue() {
-        return new Queue("order.created", true, false, true);
+        return new Queue("order.created", true, false, false);
     }
 }
