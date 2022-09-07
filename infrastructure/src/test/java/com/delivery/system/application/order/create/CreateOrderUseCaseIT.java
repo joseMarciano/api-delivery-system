@@ -42,10 +42,11 @@ public class CreateOrderUseCaseIT {
 
         final var expectedDescription = "Package 1";
         final var expectedDriver = Driver.newDriver("John");
+        final var expectedDestiny = "destiny-1";
 
         driverRepository.saveAndFlush(DriverJpaEntity.from(expectedDriver));
 
-        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriver.getId().getValue());
+        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriver.getId().getValue(), expectedDestiny);
 
         useCase.execute(aCommand);
 
@@ -73,7 +74,7 @@ public class CreateOrderUseCaseIT {
         assertEquals(1, driverRepository.count());
 
         final var aCommand =
-                CreateOrderCommand.with(expectedDescription, aDriver.getId().getValue());
+                CreateOrderCommand.with(expectedDescription, aDriver.getId().getValue(), "any-destiny");
 
         final var actualException = assertThrows(DomainException.class, () -> useCase.execute(aCommand));
 

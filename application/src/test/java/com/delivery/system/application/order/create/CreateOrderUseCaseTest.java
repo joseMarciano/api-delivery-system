@@ -27,8 +27,10 @@ public class CreateOrderUseCaseTest {
     public void givenAValidCommand_whenCallsCreateOrder_shouldReturnOrderCreated() {
         final var expectedDescription = "Package";
         final var expectedDriverId = DriverID.unique();
+        final var expectedDestiny = "destiny-1";
 
-        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue());
+
+        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue(), expectedDestiny);
 
         when(orderGateway.create(any())).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
@@ -42,11 +44,13 @@ public class CreateOrderUseCaseTest {
     public void givenAInvalidCommand_whenCallsCreateOrder_shouldReturnDomainException() {
         final var expectedDescription = "  ";
         final var expectedDriverId = DriverID.unique();
+        final var expectedDestiny = "destiny-1";
+
 
         final var expectedErrorMessage = "'description' should not be null";
         final var expectedErrorsCount = 1;
 
-        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue());
+        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue(), expectedDestiny);
 
         final var actualExpcetion = assertThrows(DomainException.class, () -> useCase.execute(aCommand));
 
@@ -61,11 +65,12 @@ public class CreateOrderUseCaseTest {
     public void givenAValidCommand_whenCallsCreateOrderAndGatewayThrowsRandonException_shouldReturnARandomException() {
         final var expectedDescription = "Package";
         final var expectedDriverId = DriverID.unique();
+        final var expectedDestiny = "destiny-1";
 
 
         final var expectedErrorMessage = "Gateway error";
 
-        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue());
+        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue(), expectedDestiny);
 
         when(orderGateway.create(any())).thenThrow(new IllegalStateException(expectedErrorMessage));
 

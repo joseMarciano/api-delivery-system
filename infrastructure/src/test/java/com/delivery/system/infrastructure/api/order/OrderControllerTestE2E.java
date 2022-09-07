@@ -33,6 +33,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.delivery.system.domain.order.OrderNotifier.NotifyOrderCreatedCommand;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -104,8 +105,8 @@ public class OrderControllerTestE2E {
 
         final var expectedDriverId = aDriver.getId();
         final var expectedDescription = "Package 1";
-        final var aRequestInput = new CreateOrderRequest(expectedDescription, expectedDriverId.getValue());
-
+        final var expectedDestiny = "destiny-1";
+        final var aRequestInput = new CreateOrderRequest(expectedDescription, expectedDriverId.getValue(), expectedDestiny);
 
         final var request =
                 MockMvcRequestBuilders.post(BASE_PATH)
@@ -128,8 +129,11 @@ public class OrderControllerTestE2E {
         assertEquals(actualEntity.getCreatedAt(), actualEntity.getUpdatedAt());
         assertEquals(actualEntity.getDriver().getId(), expectedDriverId.getValue());
 
-        verify(orderNotifier).notifyCreated(OrderID.from(actualEntity.getId()));
-        verify(rabbitTemplate).convertAndSend("order.created", Json.writeValueAsString(OrderID.from(actualEntity.getId())));
+        final var expectedNotifierCommand =
+                NotifyOrderCreatedCommand.with(OrderID.from(actualEntity.getId()), expectedDestiny);
+
+        verify(orderNotifier).notifyCreated(expectedNotifierCommand);
+        verify(rabbitTemplate).convertAndSend("order.created", Json.writeValueAsString(expectedNotifierCommand));
         assertEquals(1, rabbitAdmin.getQueueInfo("order.created").getMessageCount());
     }
 
@@ -147,7 +151,7 @@ public class OrderControllerTestE2E {
         final var expectedErrorMessage = "'description' should not be null";
         final var expectedErrorCount = 1;
 
-        final var aRequestInput = new CreateOrderRequest(expectedDescription, aDriver.getId().getValue());
+        final var aRequestInput = new CreateOrderRequest(expectedDescription, aDriver.getId().getValue(), "any-destiny");
 
         final var request =
                 MockMvcRequestBuilders.post(BASE_PATH)

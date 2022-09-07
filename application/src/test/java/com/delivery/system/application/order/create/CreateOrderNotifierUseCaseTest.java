@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static com.delivery.system.domain.order.OrderNotifier.NotifyOrderCreatedCommand;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -33,29 +34,34 @@ public class CreateOrderNotifierUseCaseTest {
     public void givenAValidCommand_whenCallsCreateOrder_shouldNotifyOrderCreated() {
         final var expectedDescription = "Package";
         final var expectedDriverId = DriverID.unique();
+        final var expectedDestiny = "destiny-1";
         final var expectedOutput =
                 CreateOrderOuput.from(Order.newOrder(expectedDescription, expectedDriverId));
 
 
-        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue());
+        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue(), expectedDestiny);
 
         when(orderUseCase.execute(aCommand)).thenReturn(expectedOutput);
 
         useCase.execute(aCommand);
 
-        verify(notifier, times(1)).notifyCreated(OrderID.from(expectedOutput.id()));
+        final var aNotifierCommand =
+                NotifyOrderCreatedCommand.with(OrderID.from(expectedOutput.id()), expectedDestiny);
+        verify(notifier, times(1)).notifyCreated(aNotifierCommand);
     }
 
     @Test
     public void givenAInvalidCommand_whenCallsCreateOrder_shouldReturnDomainException() {
         final var expectedDescription = "  ";
         final var expectedDriverId = DriverID.unique();
+        final var expectedDestiny = "destiny-1";
+
 
         final var expectedErrorMessage = "'description' should not be null";
         final var expectedErrorsCount = 1;
 
 
-        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue());
+        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue(), expectedDestiny);
         when(orderUseCase.execute(aCommand)).thenThrow(DomainException.with(new Error(expectedErrorMessage)));
 
         final var actualExpcetion = assertThrows(DomainException.class, () -> useCase.execute(aCommand));
@@ -71,13 +77,14 @@ public class CreateOrderNotifierUseCaseTest {
     public void givenAValidCommand_whenCallsCreateOrderAndGatewayThrowsRandonException_shouldReturnARandomException() {
         final var expectedDescription = "Package";
         final var expectedDriverId = DriverID.unique();
+        final var expectedDestiny = "destiny-1";
         final var expectedOutput =
                 CreateOrderOuput.from(Order.newOrder(expectedDescription, expectedDriverId));
 
 
         final var expectedErrorMessage = "Gateway error";
 
-        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue());
+        final var aCommand = CreateOrderCommand.with(expectedDescription, expectedDriverId.getValue(), expectedDestiny);
         when(orderUseCase.execute(aCommand)).thenReturn(expectedOutput);
 
         doThrow(new IllegalStateException(expectedErrorMessage))
