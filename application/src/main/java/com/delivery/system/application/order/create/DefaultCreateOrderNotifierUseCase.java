@@ -2,6 +2,7 @@ package com.delivery.system.application.order.create;
 
 import com.delivery.system.domain.order.OrderID;
 import com.delivery.system.domain.order.OrderNotifier;
+import com.delivery.system.domain.order.OrderNotifier.NotifyOrderCreatedCommand;
 
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class DefaultCreateOrderNotifierUseCase extends CreateOrderUseCase {
     @Override
     public CreateOrderOuput execute(CreateOrderCommand anIn) {
         final var anOutput = orderUseCase.execute(anIn);
-        notifier.notifyCreated(OrderID.from(anOutput.id()));
+        notifier.notifyCreated(NotifyOrderCreatedCommand.with(OrderID.from(anOutput.id()), anIn.destiny()));
         return anOutput;
     }
 

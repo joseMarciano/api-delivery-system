@@ -25,7 +25,7 @@ public class OrderController implements OrderAPI {
 
     @Override
     public void create(final CreateOrderRequest aRequest) {
-        this.createOrderUseCase.execute(CreateOrderCommand.with(aRequest.description(), aRequest.driverId()));
+        this.createOrderUseCase.execute(CreateOrderCommand.with(aRequest.description(), aRequest.driverId(), aRequest.destiny()));
     }
 
     @Override
