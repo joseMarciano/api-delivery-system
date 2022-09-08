@@ -11,7 +11,7 @@
 
 ## :wrench: Architecture fluxogram
 <div style="background: white"> 
-    <img src="/public/diagram-delivery-system.png">
+    <img src="/public/diagram.svg">
 </div>
 
 ## :ballot_box_with_check: Progress of the project
